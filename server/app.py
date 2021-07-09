@@ -1,6 +1,9 @@
 from flask import Flask
+from flask_restful import Api
 app = Flask(__name__)
 env = app.config['ENV']
+
+api = Api(app)
 
 if env == 'development':
     from .config import DevelopmentConfig
@@ -9,6 +12,7 @@ if env == 'development':
 elif env == 'Production':
     from .config import ProductionConfig
     app.config.from_object(ProductionConfig)
+
 
 @app.route('/')
 def func():
