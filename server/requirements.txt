@@ -10,3 +10,4 @@ six==1.15.0
 Werkzeug==1.0.1
 Flask-SQLAlchemy
 flask-cors
+mysql-connector-python
