@@ -21,7 +21,8 @@ class User:
 
     @classmethod
     def create_user(cls, email, password):
-        """This method validates the user and returns user object"""
+        """This method validates the user and returns user object on successful login these method
+            also need to send the JWT's"""
         conn = engine.raw_connection()
         try:
             cursor = conn.cursor()
