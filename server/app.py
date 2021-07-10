@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Api
+from flask_restful import Api, request
 app = Flask(__name__)
 env = app.config['ENV']
 
@@ -12,6 +12,11 @@ if env == 'development':
 elif env == 'Production':
     from .config import ProductionConfig
     app.config.from_object(ProductionConfig)
+
+
+@app.before_request
+def log_requests():
+    app.logger.info(request.json)
 
 
 @app.route('/')
