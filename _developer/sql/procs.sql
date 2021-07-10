@@ -15,10 +15,17 @@ CREATE PROCEDURE User_ValidateUser(
     IN  password varchar(512)
 )
 BEGIN
-    select UserLogin.userId userId
-    from UserLogin
-    where UserLogin.email = email
-          and UserLogin.password = password;
+    select T1.userId userId,
+           User.firstName firstName,
+           User.lastName lastName,
+           User.dobYear dobYear,
+           User.dobMonth dobMonth,
+           User.roleId roleId
+    from (select UserLogin.userId userId
+          from UserLogin
+          where UserLogin.email = email
+            and UserLogin.password = password) T1
+    inner join User on T1.userId = User.id;
 END $$;
 DELIMITER ;
 
