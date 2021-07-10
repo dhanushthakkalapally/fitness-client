@@ -10,18 +10,19 @@ class Signup(Resource):
             if the user has successfully authenticated"""
         # TODO: Need to make a utility function for reqparser
         parser = reqparse.RequestParser(trim=True)
-        parser.add_argument('firstName', type=str)
-        parser.add_argument('lastName', type=str)
-        parser.add_argument('email', type=str)
-        parser.add_argument('password', type=str)
-        parser.add_argument('dobYear', type=int)
-        parser.add_argument('dobMonth', type=int)
-        args = parser.parse_args(strict=False)
+        parser.add_argument('firstName', type=str, required=True)
+        parser.add_argument('lastName', type=str, required=True)
+        parser.add_argument('email', type=str, required=True)
+        parser.add_argument('password', type=str, required=True)
+        parser.add_argument('dobYear', type=int, required=True)
+        parser.add_argument('dobMonth', type=int, required=True)
+        args = parser.parse_args(strict=True)
         try:
-            user = User.create_user('dhanushthakkaldapally@gmail.com', 'Dhanush@97')
-        except user_exceptions.InvalidCredentials as e:
-            print(e)
-        return args
+            user = User.register_user(first_name=args['firstName'], last_name=args['lastName'], email=args['email'],
+                                      password=args['password'], dob_year=args['dobYear'], dob_month=args['dobMonth'])
+            return user.get_auth_details(), 200
+        except user_exceptions.UserAlreadyExists as e:
+            return {'message': str(e.message)}, e.error_code
 
 
 class Login(Resource):
@@ -30,7 +31,7 @@ class Login(Resource):
         parser = reqparse.RequestParser(trim=True)
         parser.add_argument('email', type=str, required=True, help="email is required")
         parser.add_argument('password', type=str, required=True, help="password is required")
-        args = parser.parse_args(strict=True, http_error_code=400)
+        args = parser.parse_args(strict=True, http_error_code=401)
         try:
             user = User.create_user(args['email'], args['password'])
             return user.get_auth_details(), 200
