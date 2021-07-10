@@ -65,7 +65,7 @@ BEGIN
     INSERT INTO UserLogin(UserLogin.email, UserLogin.password, UserLogin.userId)
                 values(email, password, userId);
 
-    select userId;
+	call User_GetByUserIdForAuth(userId);
 
 END $$;
 DELIMITER ;
