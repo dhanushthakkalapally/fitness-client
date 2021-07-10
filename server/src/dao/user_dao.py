@@ -1,6 +1,6 @@
-import datetime
 from ... import engine, app
 from ..exceptions import user
+from ..util import encode
 
 
 class User:
@@ -13,11 +13,13 @@ class User:
         self.role_id = role_id
 
     def get_auth_details(self):
+        token = encode(self.user_id)
         return {'firstName': self.first_name,
                 'lastName': self.last_name,
                 'roleId': self.role_id,
                 'dobYear': self.dob_year,
-                'dobMonth': self.dob_month}
+                'dobMonth': self.dob_month,
+                'token': token}
 
     @classmethod
     def create_user(cls, email, password):
