@@ -69,3 +69,13 @@ BEGIN
 
 END $$;
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE SecretKey_GetJwt()
+BEGIN
+    select value
+    from SecretKey
+    where type='jwt';
+END $$;
+
+DELIMITER ;

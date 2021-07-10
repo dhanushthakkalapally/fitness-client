@@ -28,3 +28,9 @@ CREATE TABLE UserLogin(
     CONSTRAINT PK_UserLogin PRIMARY KEY(email ASC),
     CONSTRAINT FK_User_userId FOREIGN KEY (userId) REFERENCES User(id)
 );
+
+CREATE TABLE SecretKey
+(
+    type  varchar(10) UNIQUE ,
+    value varchar(255)       NOT NULL
+);

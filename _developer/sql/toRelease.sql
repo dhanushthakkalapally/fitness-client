@@ -1,10 +1,13 @@
 DROP TABLE IF EXISTS Role;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS UserLogin;
+DROP TABLE IF EXISTS SecretKey;
 DROP PROCEDURE IF EXISTS UserLogin_CheckEmailExists;
 DROP PROCEDURE IF EXISTS User_ValidateUser;
 DROP PROCEDURE IF EXISTS User_GetByUserIdForAuth;
 DROP PROCEDURE IF EXISTS User_Signup;
+DROP PROCEDURE IF EXISTS SecretKey_GetJwt;
+
 
 CREATE TABLE Role(
     id tinyint NOT NULL,
@@ -114,4 +117,23 @@ BEGIN
     call User_GetByUserIdForAuth(userId);
 
 END $$;
+DELIMITER ;
+
+CREATE TABLE SecretKey
+(
+    type  varchar(10) UNIQUE ,
+    value varchar(255)       NOT NULL
+);
+
+INSERT INTO SecretKey(type, value)
+            values('jwt','gopalrao1973sanju1997');
+
+DELIMITER $$
+CREATE PROCEDURE SecretKey_GetJwt()
+BEGIN
+    select value
+    from SecretKey
+    where type='jwt';
+END $$;
+
 DELIMITER ;
