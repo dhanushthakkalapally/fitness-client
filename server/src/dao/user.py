@@ -1,5 +1,5 @@
 import datetime
-from ... import engine
+from ... import engine, app
 from ..exceptions import user
 
 
@@ -47,12 +47,40 @@ class User:
         finally:
             conn.close()
 
-    # @classmethod
-    # def register_user(cls, first_name, last_name, email, password, dob_year, dob_month, role_id=1):
-    #     """This method registers user and returns user object"""
-    #     conn = engine.raw_connection()
-    #     try:
-    #         cursor = conn.cursor()
-    #         # Check if the user already exists
-    #         proc_name =
-    #         cursor.callproc('')
+    @classmethod
+    def register_user(cls, first_name, last_name, email, password, dob_year, dob_month, role_id=1):
+        """This method registers user and returns user object"""
+        conn = engine.raw_connection()
+        try:
+            cursor = conn.cursor()
+            # Check if the user already exists
+            proc_name = 'UserLogin_CheckEmailExists'
+            cursor.callproc(proc_name, [email])
+            result_set = next(cursor.stored_results())
+            row = result_set.fetchone()
+            cursor.close()
+            if row:
+                # This means user already exists raise error
+                raise user.UserAlreadyExists("User Already Exists")
+            else:
+                # Create the user
+                proc_name = 'User_Signup'
+                cursor = conn.cursor()
+                cursor.callproc(proc_name, (first_name, last_name, email, password, dob_year, dob_month))
+                result_set = next(cursor.stored_results())
+                row = result_set.fetchone()
+                cursor.close()
+                conn.commit()
+                user_id = row[0]
+                first_name = row[1]
+                last_name = row[2]
+                dob_year = row[3]
+                dob_month = row[4]
+                role_id = row[5]
+                return cls(user_id, first_name, last_name, dob_year, dob_month, role_id)
+        except user.UserAlreadyExists as e:
+            raise e
+        except Exception as e:
+            app.logger.exception(e)
+        finally:
+            conn.close()
