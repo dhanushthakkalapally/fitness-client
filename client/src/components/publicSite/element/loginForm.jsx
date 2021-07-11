@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import FormInput from "../../ui/element/formInput";
 import BasicCard from "../../ui/element/basicCard";
+import PropTypes from 'prop-types';
 import '../styles/loginForm.css';
 
 class LoginForm extends Component {
@@ -13,8 +14,10 @@ class LoginForm extends Component {
     }
 
     handleSignIn = (e) => {
+        const {email, password} = this.state;
+        const {signInHandler} = this.props;
         e.preventDefault();
-
+        signInHandler(email, password);
     };
 
     passwordHandler = (e) => {
@@ -33,7 +36,6 @@ class LoginForm extends Component {
 
     render() {
         const {email, password} = this.state;
-        console.log(email, password)
         return (
             <div className="d-flex container formContainer justify-content-center align-items-center">
                 <div className="inputContainer">
@@ -70,3 +72,7 @@ class LoginForm extends Component {
 }
 
 export default LoginForm;
+
+LoginForm.propTypes = {
+    signInHandler: PropTypes.func.isRequired
+};

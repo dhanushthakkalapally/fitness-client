@@ -8,7 +8,7 @@ import axios from 'axios';
 class BaseComponent extends Component {
     opts;
 
-    constructor(props, context, opts = {}) {
+    constructor(props, context, opts={}) {
         super(props, context);
         this.opts = opts;
     }
@@ -17,6 +17,7 @@ class BaseComponent extends Component {
         if (!opts) {
             opts = {headers: {}}
             }
+        console.log(opts);
 
         if (!opts.noAuthorization && !opts.headers.Authorization) {
             //    Then set the Authorization token from the local Storage
@@ -41,11 +42,11 @@ class BaseComponent extends Component {
     }
 
 
-    apiPost(identifier, url, postData, onSuccess, onError, opts = {}) {
+    apiPost(identifier, url, postData, onSuccess, onError, opts) {
         this.makeApiRequest('post', identifier, url, postData, onSuccess, onError, opts)
     }
 
-    apiGet(identifier, url, onSuccess, onError, opts = {}) {
+    apiGet(identifier, url, onSuccess, onError, opts) {
         this.makeApiRequest('get', identifier, url, undefined, onSuccess, onError, opts);
     }
 
