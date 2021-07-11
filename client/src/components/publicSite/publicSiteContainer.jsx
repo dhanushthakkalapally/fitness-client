@@ -1,12 +1,27 @@
 import React, {Component, lazy, Suspense} from "react";
 import PublicSiteHeader from "./publicSiteHeader";
-import {Route} from "react-router";
+import {Route, withRouter} from "react-router";
+import {connect} from "react-redux";
+import {Routes} from "../../utils/routesUtil";
 
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+};
 
 class PublicSiteContainer extends Component {
     constructor(props, context) {
         super(props, context);
         this.componentsCache = {};
+    }
+
+    componentDidMount() {
+        this.checkAuthentication();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.checkAuthentication();
     }
 
     render() {
@@ -46,6 +61,14 @@ class PublicSiteContainer extends Component {
 
         return this.componentsCache[pageName];
     }
+
+    checkAuthentication() {
+        const {auth, history} = this.props;
+        if (auth.isAuthenticated) {
+            //    Need to redirect to the dashboard
+            history.replace(Routes.dashboard.url);
+        }
+    }
 }
 
-export default PublicSiteContainer;
+export default withRouter(connect(mapStateToProps, null)(PublicSiteContainer));

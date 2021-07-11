@@ -1,10 +1,10 @@
-import React, {Component} from "react";
+import React from "react";
 import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import './styles/publicHeader.css';
 
 
-function PublicSiteHeader(props) {
+function PublicSiteHeader() {
     return (
         <>
             <Navbar expand="lg" className="navBar">

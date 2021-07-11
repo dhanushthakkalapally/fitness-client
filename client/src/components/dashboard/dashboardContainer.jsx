@@ -4,10 +4,10 @@ import DashboardHeader from "./dashboardHeader";
 import {connect} from "react-redux";
 import {Routes} from "../../utils/routesUtil";
 
-const mapStateToProps = state=> {
-  return {
-      auth:state.auth
-  }
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
 };
 
 class DashboardContainer extends Component {
@@ -16,9 +16,16 @@ class DashboardContainer extends Component {
         this.componentsCache = {};
     }
 
+    componentDidMount() {
+        this.checkAuthenticationStatus();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.checkAuthenticationStatus();
+    }
+
     render() {
         const {path} = this.props;
-        this.checkAuthenticationStatus();
         const Page = this.getComponentInstance();
         return (
             <>
