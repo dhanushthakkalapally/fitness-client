@@ -11,7 +11,7 @@ class PublicSiteContainer extends Component {
 
     render() {
         const {path} = this.props;
-        const Component = this.getComponentInstance();
+        const Page = this.getComponentInstance();
         return (
             <>
                 <section>
@@ -22,8 +22,8 @@ class PublicSiteContainer extends Component {
                         return (
                             <>
                                 <Suspense fallback={<></>}>
-                                    <Component {...props}>
-                                    </Component>
+                                    <Page {...props}>
+                                    </Page>
                                 </Suspense>
                             </>
                         )
@@ -37,13 +37,13 @@ class PublicSiteContainer extends Component {
     }
 
     getComponentInstance() {
-        const {componentName} = this.props;
-        if (!this.componentsCache[componentName]) {
+        const {pageName} = this.props;
+        if (!this.componentsCache[pageName]) {
             //This will import required component lazily only when required
-            this.componentsCache[componentName] = lazy(() => import('./pages/' + componentName));
+            this.componentsCache[pageName] = lazy(() => import('./pages/' + pageName));
         }
 
-        return this.componentsCache[componentName];
+        return this.componentsCache[pageName];
     }
 }
 

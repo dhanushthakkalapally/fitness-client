@@ -7,10 +7,10 @@ const Routes = {
     'landingPage': {url: '/'}
 };
 
-export default function getPathUrl(componentName) {
-    if (componentName) {
-        if (Routes[componentName]) {
-            return Routes[componentName].url;
+export default function getPathUrl(pageName) {
+    if (pageName) {
+        if (Routes[pageName]) {
+            return Routes[pageName].url;
         }
     }
     return undefined;

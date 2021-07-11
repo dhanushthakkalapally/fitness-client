@@ -6,10 +6,10 @@ import getPathUrl from "./utils/routesUtil";
 
 class App extends BaseComponent {
 
-    static buildRouteParams(componentName, exact = true) {
-        const path = getPathUrl(componentName);
+    static buildRouteParams(pageName, exact = true) {
+        const path = getPathUrl(pageName);
         return {
-            componentName,
+            pageName,
             path,
             exact
         }
