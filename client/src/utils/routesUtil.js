@@ -3,9 +3,10 @@
  * same component name should be specified in the app.jsx
  * */
 
-const Routes = {
+export const Routes = {
     landingPage: {url: '/'},
-    login: {url: '/login'}
+    login: {url: '/login'},
+    dashboard: {url: '/dashboard'}
 };
 
 export default function getPathUrl(pageName) {

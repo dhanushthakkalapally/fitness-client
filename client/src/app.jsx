@@ -3,6 +3,7 @@ import BaseComponent from "./components/baseComponent";
 import {Switch} from "react-router";
 import PublicSiteContainer from "./components/publicSite/publicSiteContainer";
 import getPathUrl from "./utils/routesUtil";
+import DashboardContainer from "./components/dashboard/dashboardContainer";
 
 class App extends BaseComponent {
 
@@ -23,6 +24,7 @@ class App extends BaseComponent {
                  and componentDidUpdate **need to get more understanding*** */}
                     <PublicSiteContainer {...App.buildRouteParams('landingPage')}/>
                     <PublicSiteContainer {...App.buildRouteParams('login')}/>
+                    <DashboardContainer {...App.buildRouteParams('dashboard')}/>
                 </Switch>
             </>
         );
