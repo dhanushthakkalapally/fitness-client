@@ -87,3 +87,28 @@ class User:
             app.logger.exception(e)
         finally:
             conn.close()
+
+    @classmethod
+    def get_user(cls, user_id):
+        conn = engine.raw_connection()
+        try:
+            cursor = conn.cursor()
+            proc_name = "User_GetUserById"
+            cursor.callproc(proc_name, [user_id, ])
+            row = next(cursor.stored_results()).fetchone()
+            cursor.close()
+            if row:
+                first_name = row[0]
+                last_name = row[1]
+                dob_year = row[2]
+                dob_month = row[3]
+                role_id = row[4]
+                return cls(user_id, first_name, last_name, dob_year, dob_month, role_id)
+            else:
+                raise user.UserNotFound("user not fount")
+        except user.UserNotFound as e:
+            raise user.UserNotFound(e)
+        except Exception as e:
+            app.logger.exception(e)
+        finally:
+            conn.close()
