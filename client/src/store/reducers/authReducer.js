@@ -9,19 +9,16 @@ const initialState = {
 
 
 const authReducer = (state = initialState, action) => {
-    switch (action.Type) {
+    switch (action.type) {
         case actionTypes.SET_AUTH:
+            const {firstName, lastName, dobYear} = action;
+            const age = getAge(dobYear);
             //        This means user has now authenticated so store the token in local storage and token will be taken in every request
-            localStorage.setItem("loginToken", action.loginToken);
-            const {firstName, lastName, dobYear, dobMonth} = action;
-            const year = new Date().getFullYear();
-            const month = new Date().getMonth();
-            console.log(month, year, dobYear, dobMonth);
-            console.log(month, year, dobYear, dobMonth);
+            localStorage.setItem("token", action.token);
             return {
                 firstName,
                 lastName,
-                age: 23,
+                age,
                 isAuthenticated: true
             };
             break;
@@ -29,6 +26,11 @@ const authReducer = (state = initialState, action) => {
             return {...state};
 
     }
+};
+
+const getAge = dobYear=> {
+    const year = new Date().getFullYear();
+    return (year - dobYear) - 1;
 };
 
 export default authReducer;
