@@ -1,20 +1,19 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
-import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
 import {clearAuth} from "../../store/actions/authAction";
 import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {withRouter} from "react-router";
 
-mapStateToProps = state => {
+const mapStateToProps = state => {
     return {
         auth: state.auth
     }
 };
 
-mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
-        clearAuth: dispatch(clearAuth()),
+        clearAuth: () => {dispatch(clearAuth())},
     }
 };
 
@@ -22,13 +21,14 @@ class DashboardHeader extends Component {
 
 
     render() {
+        console.log(this.props)
         const {clearAuth} = this.props;
-        console.log(this.props);
+        this.checkAuthentication();
         return (
             <Navbar expand="lg" className="navBar">
                 <div className="container">
                     <Navbar.Brand className="navBrand">
-                       <Link to="/"> Fitness </Link>
+                        <Link to="/"> Fitness </Link>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                     <Navbar.Collapse className="justify-content-between" id="responsive-navbar-nav">
@@ -44,6 +44,16 @@ class DashboardHeader extends Component {
         )
     }
 
+    checkAuthentication() {
+        const {auth, history} = this.props;
+        if (auth.isAuthenticated) {
+            return true;
+        } else {
+            console.log('Redirecting to Landing Page.....!');
+            //    redirect to landing page
+            history.replace('/');
+        }
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DashboardHeader));
