@@ -63,8 +63,8 @@ class PublicSiteContainer extends Component {
     }
 
     checkAuthentication() {
-        const {auth, history} = this.props;
-        if (auth.isAuthenticated) {
+        const {auth, history, avoidVerification} = this.props;
+        if (auth.isAuthenticated && !avoidVerification) {
             //    Need to redirect to the dashboard
             history.replace(Routes.dashboard.url);
         }

@@ -22,7 +22,7 @@ class App extends BaseComponent {
                 <Switch>
                     {/*Switch make the components inside it singleton that means publicSiteContainer will only be initialized once and upon next call only render is called
                  and componentDidUpdate **need to get more understanding*** */}
-                    <PublicSiteContainer {...App.buildRouteParams('landingPage')}/>
+                    <PublicSiteContainer {...App.buildRouteParams('landingPage')} avoidVerification/>
                     <PublicSiteContainer {...App.buildRouteParams('login')}/>
                     <DashboardContainer {...App.buildRouteParams('dashboard')}/>
                 </Switch>
