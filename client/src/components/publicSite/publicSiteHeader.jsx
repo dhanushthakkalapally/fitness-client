@@ -18,7 +18,7 @@ function PublicSiteHeader(props) {
                         </ul>
                         <ul className="navbar-nav">
                             <li className="nav-item navElement me-2"><Link to="/about">About</Link></li>
-                            <li className="nav-item navElement me-2"><Link to="/login">Login</Link></li>
+                            <li className="nav-item navElement me-2"><Link to="/login">Sign in</Link></li>
                         </ul>
                     </Navbar.Collapse>
                 </div>
