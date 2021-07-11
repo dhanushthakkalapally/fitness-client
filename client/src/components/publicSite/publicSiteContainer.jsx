@@ -37,13 +37,13 @@ class PublicSiteContainer extends Component {
     }
 
     getComponentInstance() {
-        const {routeName} = this.props;
-        if (!this.componentsCache[routeName]) {
+        const {componentName} = this.props;
+        if (!this.componentsCache[componentName]) {
             //This will import required component lazily only when required
-            this.componentsCache[routeName] = lazy(() => import('./pages/' + routeName));
+            this.componentsCache[componentName] = lazy(() => import('./pages/' + componentName));
         }
 
-        return this.componentsCache[routeName];
+        return this.componentsCache[componentName];
     }
 }
 
