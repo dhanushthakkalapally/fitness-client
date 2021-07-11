@@ -79,3 +79,20 @@ BEGIN
 END $$;
 
 DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE User_GetUserById(
+    IN userId int
+)
+BEGIN
+    select User.firstName firstName,
+           User.lastName  lastName,
+           User.dobYear   dobYear,
+           User.dobMonth  dobMonth,
+           User.roleId    roleId
+    from User
+    where User.id = userId;
+END $$;
+
+DELIMITER ;
