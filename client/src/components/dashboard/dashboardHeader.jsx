@@ -3,27 +3,18 @@ import {connect} from "react-redux";
 import {clearAuth} from "../../store/actions/authAction";
 import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {withRouter} from "react-router";
-
-const mapStateToProps = state => {
-    return {
-        auth: state.auth
-    }
-};
 
 const mapDispatchToProps = dispatch => {
     return {
-        clearAuth: () => {dispatch(clearAuth())},
+        clearAuth: () => {
+            dispatch(clearAuth())
+        },
     }
 };
 
 class DashboardHeader extends Component {
 
-
     render() {
-        console.log(this.props)
-        const {clearAuth} = this.props;
-        this.checkAuthentication();
         return (
             <Navbar expand="lg" className="navBar">
                 <div className="container">
@@ -44,16 +35,6 @@ class DashboardHeader extends Component {
         )
     }
 
-    checkAuthentication() {
-        const {auth, history} = this.props;
-        if (auth.isAuthenticated) {
-            return true;
-        } else {
-            console.log('Redirecting to Landing Page.....!');
-            //    redirect to landing page
-            history.replace('/');
-        }
-    }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DashboardHeader));
+export default connect(mapDispatchToProps)(DashboardHeader);

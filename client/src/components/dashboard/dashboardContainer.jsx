@@ -1,7 +1,14 @@
 import React, {Component, lazy, Suspense} from "react";
-import {Route} from "react-router";
+import {Route, withRouter} from "react-router";
 import DashboardHeader from "./dashboardHeader";
+import {connect} from "react-redux";
+import {Routes} from "../../utils/routesUtil";
 
+const mapStateToProps = state=> {
+  return {
+      auth:state.auth
+  }
+};
 
 class DashboardContainer extends Component {
     constructor(props, context) {
@@ -11,8 +18,8 @@ class DashboardContainer extends Component {
 
     render() {
         const {path} = this.props;
+        this.checkAuthenticationStatus();
         const Page = this.getComponentInstance();
-        console.log(this.props, Page);
         return (
             <>
                 <section>
@@ -47,6 +54,15 @@ class DashboardContainer extends Component {
 
         return this.componentsCache[pageName];
     }
+
+    checkAuthenticationStatus() {
+        const {auth, history} = this.props;
+        console.log(this.props);
+        if (!auth.isAuthenticated) {
+            history.replace(Routes.landingPage.url);
+        }
+
+    }
 }
 
-export default DashboardContainer;
+export default withRouter(connect(mapStateToProps, null)(DashboardContainer));
