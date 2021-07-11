@@ -8,12 +8,12 @@ import axios from 'axios';
 class BaseComponent extends Component {
     opts;
 
-    constructor(props, context, opts={}) {
+    constructor(props, context, opts = {}) {
         super(props, context);
         this.opts = opts;
     }
 
-    makeApiRequest(method, identifier, url, postData, onSuccessHandler, onErrorHandler, opts) {
+    makeApiRequest(method, identifier, url, data, onSuccessHandler, onErrorHandler, opts) {
         if (!opts) {
             opts = {headers: {}}
             }
@@ -23,11 +23,10 @@ class BaseComponent extends Component {
             //    Then set the Authorization token from the local Storage
             opts.headers.Authorization = BaseComponent.getBearerToken();
         }
-
         return axios({
             method,
             url: BaseComponent.baseUrl + '/' + url,
-            postData,
+            data,
             params: opts.params,
             headers: opts.headers
         }).then(res => {
