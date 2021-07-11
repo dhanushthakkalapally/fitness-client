@@ -3,6 +3,7 @@ import BaseComponent from "../../baseComponent";
 import LoginForm from "../element/loginForm";
 import {connect} from 'react-redux';
 import {setAuth} from "../../../store/actions/authAction";
+import LoadingComponent from "../../ui/element/loadingComponent";
 
 const mapStateToProps = state => {
     return {
@@ -19,6 +20,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 class Login extends BaseComponent {
+    state = {};
     signInHandler = (email, password) => {
         const {setAuth} = this.props;
         const postData = {
@@ -29,15 +31,26 @@ class Login extends BaseComponent {
             //Now deal with sign in so when the user logged in
             // set the item in local storage and take it with every next request
             const {data} = res;
-            setAuth(data)
+            setAuth(data);
+            this.setState({
+                verifying: false
+            });
         }, err => {
+            this.setState({
+                verifying: false
+            });
             console.error(err);
+        });
+        this.setState({
+            verifying: true
         })
     };
 
     render() {
+        const {verifying} = this.state;
         return (<>
-            <LoginForm signInHandler={this.signInHandler}/>
+            {verifying && <div className="mt-5"><LoadingComponent color="#ff8e01" text="Authenticating..."/></div>}
+            {!verifying && <LoginForm signInHandler={this.signInHandler}/>}
         </>)
     }
 }

@@ -3,7 +3,6 @@ import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import './styles/publicHeader.css';
 import {connect} from "react-redux";
-import {Redirect} from "react-router";
 import {Routes} from "../../utils/routesUtil";
 
 const mapStateToProps = state => {
@@ -34,7 +33,7 @@ class PublicSiteHeader extends Component {
                                 </li>}
                                 {isAuthenticated && <li className="nav-item navElement me-2"><Link
                                     to={Routes.dashboard.url}>Dashboard</Link></li>}
-                                {isAuthenticated && <li className="nav-item navElement me-2"><Link>Sign out</Link></li>}
+                                {isAuthenticated && <li className="nav-item navElement me-2"><a>Sign out</a></li>}
                             </ul>
                         </Navbar.Collapse>
                     </div>
