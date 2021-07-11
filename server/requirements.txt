@@ -12,3 +12,4 @@ Flask-SQLAlchemy
 flask-cors
 mysql-connector-python
 PyJWT
+Flask-Cors==1.10.3

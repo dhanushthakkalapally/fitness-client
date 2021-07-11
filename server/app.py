@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Api, request
+from flask_cors import CORS
 
 app = Flask(__name__)
 env = app.config['ENV']
@@ -16,6 +17,10 @@ elif env == 'Production':
 
     app.config.from_object(ProductionConfig)
 
+CORS(app, resources={r"*": {"origins": "http://localhost:3000/*"}},
+     methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+     allow_headers=['Authorization, Content-Type, Origin'])
+
 
 @app.before_request
 def log_requests():
@@ -25,3 +30,8 @@ def log_requests():
 @app.route('/')
 def func():
     return 'Hello from App'
+
+
+@app.after_request
+def define_policy(x):
+    return x
