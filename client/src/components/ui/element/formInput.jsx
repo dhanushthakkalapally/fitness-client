@@ -6,7 +6,7 @@ class FormInput extends Component {
 
 
     render() {
-        const {id, label} = this.props;
+        const {id, label, type, value, onChangeHandler} = this.props;
         return (
             <div className="input-group formInput d-block mb-3">
                 <div>
@@ -19,6 +19,9 @@ class FormInput extends Component {
                            id={id}
                            className="form-control"
                            aria-label="Default"
+                           type={type}
+                           value={value}
+                           onChange={onChangeHandler}
                     />
                 </div>
             </div>
@@ -28,9 +31,14 @@ class FormInput extends Component {
 
 FormInput.propTypes = {
     id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    value: PropTypes.string.isRequired,
+    onChangeHandler: PropTypes.func.isRequired
 };
 
-FormInput.defaultProps = {};
+FormInput.defaultProps = {
+    type: "input"
+};
 
 export default FormInput;

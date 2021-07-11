@@ -4,25 +4,62 @@ import BasicCard from "../../ui/element/basicCard";
 import '../styles/loginForm.css';
 
 class LoginForm extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            email: "",
+            password: ""
+        };
+    }
+
+    handleSignIn = (e) => {
+        e.preventDefault();
+
+    };
+
+    passwordHandler = (e) => {
+        const password = e.target.value;
+        this.setState({
+            password
+        })
+    };
+
+    emailHandler = (e) => {
+        const email = e.target.value;
+        this.setState({
+            email
+        })
+    };
+
     render() {
+        const {email, password} = this.state;
+        console.log(email, password)
         return (
             <div className="d-flex container formContainer justify-content-center align-items-center">
                 <div className="inputContainer">
                     <BasicCard>
                         <h3 className="text-center formHeader">Sign in</h3>
-                        <form>
+                        <form onSubmit={this.handleSignIn}>
                             <div className="formInputGroup container my-2">
                                 <FormInput label="Email/Username"
-                                           id="loginEmail">
+                                           id="loginEmail"
+                                           type="input"
+                                           value={email}
+                                           onChangeHandler={this.emailHandler}
+                                >
                                 </FormInput>
                             </div>
                             <div className="formInputGroup container my-2">
                                 <FormInput label="Password"
-                                           id="loginPassword">
+                                           id="loginPassword"
+                                           type="password"
+                                           value={password}
+                                           onChangeHandler={this.passwordHandler}
+                                >
                                 </FormInput>
                             </div>
                             <div className="formInputGroup container text-center my-2">
-                                <button className="btn btn-lg ">Sign in</button>
+                                <button type="submit" className="btn btn-lg ">Sign in</button>
                             </div>
                         </form>
                     </BasicCard>
