@@ -1,11 +1,12 @@
 import React from "react";
 import BaseComponent from "../../baseComponent";
+import LoginForm from "../element/loginForm";
 
 class Login extends BaseComponent {
 
     render() {
         return (<>
-        <h2>Hello from Login Page</h2>
+        <LoginForm/>
         </>)
     }
 }
