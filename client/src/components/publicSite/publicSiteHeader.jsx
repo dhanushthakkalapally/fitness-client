@@ -9,7 +9,7 @@ class PublicSiteHeader extends Component {
             <>
                 <Navbar expand="lg" className="navBar">
                     <div className="container">
-                        <Navbar.Brand>
+                        <Navbar.Brand className="navBrand">
                             Fitness
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
@@ -18,6 +18,7 @@ class PublicSiteHeader extends Component {
                                 <li className="nav-item navElement"><Link to="/">Home</Link></li>
                             </ul>
                             <ul className="navbar-nav">
+                                <li className="nav-item navElement me-2"><Link to="/about">About</Link></li>
                                 <li className="nav-item navElement me-2"><Link to="/login">Login</Link></li>
                             </ul>
                         </Navbar.Collapse>
