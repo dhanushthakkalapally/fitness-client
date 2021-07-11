@@ -19,6 +19,7 @@ class PublicSiteContainer extends Component {
                 </section>
                 <Route path={path} exact render={
                     props => {
+                        //This component is loaded lazily
                         return (
                             <>
                                 <Suspense fallback={<></>}>

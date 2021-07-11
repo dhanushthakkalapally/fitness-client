@@ -1,6 +1,5 @@
 .navBar {
     background-color: #ff8e01;
-    font-family: 'Roboto', sans-serif;
     box-shadow: var(--devsite-header-lower-box-shadow,0 1px 2px 0 rgba(60,64,67,.3),0 2px 6px 2px rgba(60,64,67,.15));
 }
 

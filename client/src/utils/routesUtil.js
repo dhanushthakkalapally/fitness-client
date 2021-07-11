@@ -4,7 +4,8 @@
  * */
 
 const Routes = {
-    'landingPage': {url: '/'}
+    landingPage: {url: '/'},
+    login: {url: '/login'}
 };
 
 export default function getPathUrl(pageName) {
