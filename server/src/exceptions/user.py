@@ -8,3 +8,9 @@ class UserAlreadyExists(Exception):
     def __init__(self, message, error_code=403):
         self.message = message
         self.error_code = error_code
+
+
+class UserNotFound(Exception):
+    def __init__(self, message, error_code=404):
+        self.message = message
+        self.error_code = error_code
