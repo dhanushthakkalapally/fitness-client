@@ -20,7 +20,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class Login extends BaseComponent {
-    state = {};
     signInHandler = (email, password) => {
         const {setAuth} = this.props;
         const postData = {

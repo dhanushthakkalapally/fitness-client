@@ -14,7 +14,7 @@ class Dashboard extends Component {
         const {auth} = this.props;
         return (
             <>
-                <h2>
+                <h2 className="text-center">
                     Welcome {auth.firstName} :) We are getting there soon!
                 </h2>
             </>

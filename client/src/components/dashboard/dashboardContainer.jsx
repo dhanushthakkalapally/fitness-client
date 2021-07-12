@@ -66,6 +66,7 @@ class DashboardContainer extends Component {
         const {auth, history} = this.props;
         console.log(this.props);
         if (!auth.isAuthenticated) {
+            console.log("hello")
             history.replace(Routes.landingPage.url);
         }
 
