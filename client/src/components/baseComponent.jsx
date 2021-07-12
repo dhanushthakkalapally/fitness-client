@@ -7,6 +7,7 @@ import axios from 'axios';
  * */
 class BaseComponent extends Component {
     opts;
+    state = {};
 
     constructor(props, context, opts = {}) {
         super(props, context);
@@ -52,12 +53,11 @@ class BaseComponent extends Component {
     componentDidMount() {
         const {pageLoad} = this.opts;
         if (pageLoad) {
-            const {url, postData, onSuccesHandler, onErrorHandler, opts} = pageLoad;
-
+            const {url, postData, onSuccessHandler, onErrorHandler, opts} = pageLoad;
             if (postData) {
-                this.apiPost('pageLoad', url, postData, onSuccesHandler, onErrorHandler, opts);
+                this.apiPost('pageLoad', url, postData, onSuccessHandler, onErrorHandler, opts);
             } else {
-                this.apiGet('pageLoad', url, onSuccesHandler, onErrorHandler, opts);
+                this.apiGet('pageLoad', url, onSuccessHandler, onErrorHandler, opts);
             }
         }
     }
@@ -67,9 +67,9 @@ BaseComponent.baseUrl = 'http://127.0.0.1:5000/api';
 
 BaseComponent.getBearerToken = () => {
     //This need to come from global state
-    const token = localStorage.getItem('loginToken');
+    const token = localStorage.getItem('token');
     if (token) {
-        return `Bearer ${token}`;
+        return `${token}`;
     }
     return undefined;
 };

@@ -4,8 +4,42 @@ import {Switch} from "react-router";
 import PublicSiteContainer from "./components/publicSite/publicSiteContainer";
 import getPathUrl from "./utils/routesUtil";
 import DashboardContainer from "./components/dashboard/dashboardContainer";
+import {connect} from "react-redux";
+import {setAuth} from "./store/actions/authAction";
+import LoadingComponent from "./components/ui/element/loadingComponent";
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setAuth: (details) => dispatch(setAuth(details))
+    }
+};
 
 class App extends BaseComponent {
+    constructor(props, context) {
+
+        const opts = {
+            pageLoad: {
+                postData: {},
+                url: 'web/initialize',
+                onSuccessHandler: res => {
+                    const {isAuthenticated, firstName, lastName, dobYear, dobMonth, roleId, token} = res.data;
+                    if (isAuthenticated) {
+                        props.setAuth({firstName, lastName, dobYear, dobMonth, roleId, token});
+                    }
+                    this.setState({siteInitializing: false})
+                }
+                , onErrorHandler: err => {
+                    console.log(err)
+                    this.setState({siteInitializing: false})
+                }
+            }
+        };
+        super(props, context, opts);
+        this.state = {
+            siteInitializing: true
+        }
+    }
 
     static buildRouteParams(pageName, exact = true) {
         const path = getPathUrl(pageName);
@@ -17,6 +51,10 @@ class App extends BaseComponent {
     }
 
     render() {
+        const {siteInitializing} = this.state;
+        if (siteInitializing) {
+            return <LoadingComponent text="Loading Site..." />
+        }
         return (
             <>
                 <Switch>
@@ -29,7 +67,8 @@ class App extends BaseComponent {
             </>
         );
     }
+
 }
 
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
