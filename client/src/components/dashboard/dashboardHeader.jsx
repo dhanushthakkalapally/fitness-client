@@ -14,6 +14,9 @@ const mapDispatchToProps = dispatch => {
 };
 
 class DashboardHeader extends Component {
+    handleSignOut = () => {
+        this.props.clearAuth()
+    };
 
     render() {
         return (
@@ -28,7 +31,7 @@ class DashboardHeader extends Component {
                             <li className="nav-item navElement"><Link to={Routes.dashboard.url}>Home</Link></li>
                         </ul>
                         <ul className="navbar-nav">
-                            <li className="nav-item navElement me-2"><a>Sign out</a></li>
+                            <li className="nav-item navElement me-2"><a onClick={this.handleSignOut}>Sign out</a></li>
                         </ul>
                     </Navbar.Collapse>
                 </div>
@@ -38,4 +41,4 @@ class DashboardHeader extends Component {
 
 }
 
-export default connect(mapDispatchToProps)(DashboardHeader);
+export default connect(null,mapDispatchToProps)(DashboardHeader);

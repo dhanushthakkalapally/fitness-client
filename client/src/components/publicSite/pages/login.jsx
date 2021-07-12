@@ -30,7 +30,9 @@ class Login extends BaseComponent {
             //Now deal with sign in so when the user logged in
             // set the item in local storage and take it with every next request
             const {data} = res;
-            setAuth(data);
+            if (data.isAuthenticated) {
+                setAuth(data);
+            }
             this.setState({
                 verifying: false
             });

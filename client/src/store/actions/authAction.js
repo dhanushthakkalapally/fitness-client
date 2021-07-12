@@ -2,7 +2,7 @@ import {CLEAR_AUTH, SET_AUTH} from '../actionTypes/authActionTypes'
 
 export function clearAuth() {
     return {
-        Type: CLEAR_AUTH
+        type: CLEAR_AUTH
     }
 }
 

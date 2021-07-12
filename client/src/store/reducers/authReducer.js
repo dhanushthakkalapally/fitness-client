@@ -1,10 +1,7 @@
 import * as actionTypes from '../actionTypes/authActionTypes';
 
 const initialState = {
-    isAuthenticated: false,
-    firstName: undefined,
-    lastName: undefined,
-    age: undefined
+    isAuthenticated: false
 };
 
 
@@ -22,6 +19,12 @@ const authReducer = (state = initialState, action) => {
                 isAuthenticated: true
             };
             break;
+        case actionTypes.CLEAR_AUTH:
+            //remove the
+            localStorage.removeItem('token');
+            return {
+                isAuthenticated: false
+            };
         default:
             return {...state};
 

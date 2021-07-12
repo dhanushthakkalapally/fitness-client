@@ -4,16 +4,23 @@ import {Link} from "react-router-dom";
 import './styles/publicHeader.css';
 import {connect} from "react-redux";
 import {Routes} from "../../utils/routesUtil";
+import {clearAuth} from "../../store/actions/authAction";
 
 const mapStateToProps = state => {
     return {
         auth: state.auth
     }
 };
-
+const mapDispatchToProps = dispatch => {
+    return {
+        clearAuth: () => dispatch(clearAuth())
+    }
+};
 
 class PublicSiteHeader extends Component {
-
+    handleSignOut = () => {
+        this.props.clearAuth()
+    };
 
     render() {
         const {isAuthenticated} = this.props.auth;
@@ -33,7 +40,7 @@ class PublicSiteHeader extends Component {
                                 </li>}
                                 {isAuthenticated && <li className="nav-item navElement me-2"><Link
                                     to={Routes.dashboard.url}>Dashboard</Link></li>}
-                                {isAuthenticated && <li className="nav-item navElement me-2"><a>Sign out</a></li>}
+                                {isAuthenticated && <li className="nav-item navElement me-2"><a onClick={this.handleSignOut}>Sign out</a></li>}
                             </ul>
                         </Navbar.Collapse>
                     </div>
@@ -43,4 +50,4 @@ class PublicSiteHeader extends Component {
 };
 
 
-export default connect(mapStateToProps, null)(PublicSiteHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(PublicSiteHeader);

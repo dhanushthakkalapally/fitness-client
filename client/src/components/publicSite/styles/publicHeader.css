@@ -12,4 +12,5 @@
 .navElement a {
     color: #fffffa !important;
     text-decoration: unset;
+    cursor: pointer;
 }

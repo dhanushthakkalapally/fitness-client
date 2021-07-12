@@ -34,6 +34,8 @@ class Login(Resource):
         args = parser.parse_args(strict=True, http_error_code=401)
         try:
             user = User.create_user(args['email'], args['password'])
-            return user.get_auth_details(), 200
+            details = user.get_auth_details()
+            details['isAuthenticated'] = True
+            return details, 200
         except user_exceptions.InvalidCredentials as e:
-            return {'message': str(e.message)}, e.error_code
+            return {'message': str(e.message), 'isAuthenticated': False}, e.error_code
