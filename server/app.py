@@ -14,7 +14,6 @@ if env == 'development':
     app.logger.info('Hello, Fitness App running in Development Mode :)')
 elif env == 'Production':
     from .config import ProductionConfig
-
     app.config.from_object(ProductionConfig)
 
 CORS(app, resources={r"*": {"origins": "http://localhost:3000/*"}},
@@ -24,14 +23,9 @@ CORS(app, resources={r"*": {"origins": "http://localhost:3000/*"}},
 
 @app.before_request
 def log_requests():
-    app.logger.info(request.json)
+   app.logger.info(request.json)
 
 
 @app.route('/')
 def func():
     return 'Hello from App'
-
-
-@app.after_request
-def define_policy(x):
-    return x

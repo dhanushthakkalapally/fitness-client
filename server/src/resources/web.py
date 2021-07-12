@@ -9,8 +9,10 @@ class Initialize(Resource):
         if user:
             # Then we have a valid request send the details with new
             # refreshed token
-            return user.get_auth_details()
+            details = user.get_auth_details()
+            details['isAuthenticated'] = True
+            return details
         else:
             # This means we don't have the user may be anonymous
             # Now send all the data as undefined
-            return {'success': True}
+            return {'isAuthenticated': False}
