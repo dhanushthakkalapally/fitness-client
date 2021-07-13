@@ -34,11 +34,13 @@ class Login extends BaseComponent {
                 setAuth(data);
             }
             this.setState({
-                verifying: false
+                verifying: false,
+                error: false
             });
         }, err => {
             this.setState({
-                verifying: false
+                verifying: false,
+                error: true
             });
             console.error(err);
         });
@@ -48,8 +50,9 @@ class Login extends BaseComponent {
     };
 
     render() {
-        const {verifying} = this.state;
+        const {verifying, error} = this.state;
         return (<>
+        {error && <div className="alert-danger text-center">Invalid credentials!</div>}
             {verifying && <div className="mt-5"><LoadingComponent color="#ff8e01" text="Authenticating..."/></div>}
             {!verifying && <LoginForm signInHandler={this.signInHandler}/>}
         </>)

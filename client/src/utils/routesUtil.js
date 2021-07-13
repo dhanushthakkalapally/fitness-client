@@ -6,7 +6,8 @@
 export const Routes = {
     landingPage: {url: '/'},
     login: {url: '/login'},
-    dashboard: {url: '/dashboard'}
+    dashboard: {url: '/dashboard'},
+    about: {url: '/about'}
 };
 
 export default function getPathUrl(pageName) {

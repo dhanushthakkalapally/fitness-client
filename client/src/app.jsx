@@ -62,6 +62,7 @@ class App extends BaseComponent {
                  and componentDidUpdate **need to get more understanding*** */}
                     <PublicSiteContainer {...App.buildRouteParams('landingPage')} avoidVerification/>
                     <PublicSiteContainer {...App.buildRouteParams('login')}/>
+                    <PublicSiteContainer {...App.buildRouteParams('about')} avoidVerification/>
                     <DashboardContainer {...App.buildRouteParams('dashboard')}/>
                 </Switch>
             </>
