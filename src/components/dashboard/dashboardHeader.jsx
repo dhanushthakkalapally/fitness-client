@@ -20,7 +20,7 @@ class DashboardHeader extends Component {
 
     render() {
         return (
-            <Navbar expand="lg" className="navBar">
+            <Navbar expand="lg" className="navBar p-0">
                 <div className="container">
                     <Navbar.Brand className="navBrand">
                         <Link to="/"> Fitness </Link>
@@ -38,7 +38,6 @@ class DashboardHeader extends Component {
             </Navbar>
         )
     }
-
 }
 
 export default connect(null,mapDispatchToProps)(DashboardHeader);

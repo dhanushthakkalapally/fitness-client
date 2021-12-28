@@ -26,7 +26,7 @@ class PublicSiteHeader extends Component {
         const {isAuthenticated} = this.props.auth;
         return (
             <>
-                <Navbar expand="lg" className="navBar">
+                <Navbar expand="lg" className="navBar p-0">
                     <div className="container">
                         <Navbar.Brand className="navBrand">
                             <Link to={Routes.landingPage.url}>Fitness</Link>
