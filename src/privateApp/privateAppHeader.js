@@ -1,9 +1,8 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {clearAuth} from "../store/actions/authAction";
 import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
-// import {Routes} from "../../utils/routesUtil";
 
 const PrivateAppHeader = props => {
     const dispatch = useDispatch();
