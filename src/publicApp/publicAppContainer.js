@@ -1,7 +1,7 @@
 import React from "react";
 import {useSelector} from "react-redux";
 import {Redirect, Route, Switch} from "react-router";
-import AppRoutes from "../appRoutes";
+import publicAppRoutes from "../publicApp/publicAppRoutes";
 
 const PublicAppContainer = () => {
     const {auth} = useSelector(state => {
@@ -13,13 +13,13 @@ const PublicAppContainer = () => {
     console.log(isAuthenticated)
     return (
         <Switch>
-            {/*{AppRoutes.map((item, idx) => <Route path={item.path} render={props => {*/}
-            {/*    const {canAllow, component: Component} = item;*/}
-            {/*    // if ((isAuthenticated && canAllow) || !isAuthenticated) {*/}
-            {/*        return <Component props={props}/>*/}
-            {/*    // }*/}
-            {/*    // return <Redirect to="/dashboard"/>*/}
-            {/*}} idx={idx}/>)}*/}
+            {publicAppRoutes.map((item, idx) => <Route path={item.path} render={props => {
+                const {canAllow, component: Component} = item;
+                if ((isAuthenticated && canAllow) || !isAuthenticated) {
+                    return <Component props={props}/>
+                }
+                return <Redirect to="/dashboard"/>
+            }} idx={idx}/>)}
 
         </Switch>
     )

@@ -10,8 +10,8 @@ const PrivateAppContainer = () => {
             auth: state.auth
         }
     })
-    // const {isAuthenticated} = auth;
-    const isAuthenticated = true
+    const {isAuthenticated} = auth;
+    // const isAuthenticated = true
     return (
         <>
             {isAuthenticated && <PrivateAppHeader/>}
