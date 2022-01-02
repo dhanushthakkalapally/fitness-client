@@ -1,6 +1,7 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {Route} from "react-router";
+import {Redirect, Route, Switch} from "react-router";
+import privateAppRoutes from "./privateAppRoutes";
 
 const PrivateAppContainer = () => {
     const {auth} = useSelector(state => {
@@ -8,11 +9,17 @@ const PrivateAppContainer = () => {
             auth: state.auth
         }
     })
-
-    console.log(auth);
+    const {isAuthenticated} = auth;
     return (
         <>
-
+            <Switch>
+                {privateAppRoutes.map((item, idx) =>
+                    <Route path={item.path} render={props => {
+                        return {isAuthenticated} ?
+                            <item.component props={props}/> :
+                            <Redirect to="/login"/>
+                    }} key={idx}/>)}
+            </Switch>
         </>
     )
 }
