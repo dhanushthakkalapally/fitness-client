@@ -1,6 +1,6 @@
 /**
  * Need to define component name and path here so to get and
- * same component name should be specified in the app.jsx
+ * same component name should be specified in the app.js
  * */
 
 export const Routes = {

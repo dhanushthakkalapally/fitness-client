@@ -7,8 +7,7 @@ import DashboardContainer from "./components/dashboard/dashboardContainer";
 import {connect} from "react-redux";
 import {setAuth} from "./store/actions/authAction";
 import LoadingComponent from "./components/ui/element/loadingComponent";
-
-
+// import * as Process from "process";
 const mapDispatchToProps = dispatch => {
     return {
         setAuth: (details) => dispatch(setAuth(details))

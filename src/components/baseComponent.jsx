@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 /***
- * This components mainly contains bunch of utility methods to make api calls
+ * These components mainly contains a bunch of utility methods to make api calls
  * and can be extended by other components
  * */
 class BaseComponent extends Component {
