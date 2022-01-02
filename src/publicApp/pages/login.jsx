@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-class Login extends BaseComponent {
+class Login extends C {
     signInHandler = (email, password) => {
         const {setAuth} = this.props;
         const postData = {
