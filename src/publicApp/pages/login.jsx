@@ -1,9 +1,9 @@
 import React from "react";
 import BaseComponent from "../../baseComponent";
-import LoginForm from "../element/loginForm";
+import LoginForm from "../../components/publicSite/element/loginForm";
 import {connect} from 'react-redux';
-import {setAuth} from "../../../store/actions/authAction";
-import LoadingComponent from "../../ui/element/loadingComponent";
+import {setAuth} from "../../store/actions/authAction";
+import LoadingComponent from "../../components/ui/element/loadingComponent";
 
 const mapStateToProps = state => {
     return {

@@ -1,5 +1,5 @@
 import React from "react";
-import BasicCard from "../../ui/element/basicCard";
+import BasicCard from "../../components/ui/element/basicCard";
 
 const About = () => {
     return (
