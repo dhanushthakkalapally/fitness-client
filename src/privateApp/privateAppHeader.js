@@ -6,11 +6,6 @@ import {Link} from "react-router-dom";
 
 const PrivateAppHeader = props => {
     const dispatch = useDispatch();
-    const {auth} = useSelector(state => {
-        return {
-            auth: state.auth
-        };
-    });
 
     return (
         <Navbar expand="lg" className="navBar p-0">

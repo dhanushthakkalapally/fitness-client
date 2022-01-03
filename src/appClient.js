@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const requestConfig = {
     baseURL: window.__RUNTIME_CONFIG__.DOMAIN_NAME + "/api"
 }
@@ -21,4 +22,21 @@ export const login = async (email, password) => {
  */
 export const getUser = async (userId) => {
     return instance.get(`/users/${userId}`)
+}
+
+/***
+ *
+ * @param firstName
+ * @param lastName
+ * @param email
+ * @param password
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const register = async (firstName, lastName, email, password) => {
+    return instance.post("/users", {
+         firstName,
+        email,
+        password,
+        lastName
+    })
 }
