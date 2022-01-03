@@ -8,20 +8,19 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_AUTH:
-            const {firstName, lastName, dobYear} = action;
-            const age = getAge(dobYear);
+            const {firstName, lastName, token, userId} = action;
             //        This means user has now authenticated so store the token in local storage and token will be taken in every request
-            localStorage.setItem("token", action.token);
+            localStorage.setItem("accessToken", token);
             return {
                 firstName,
                 lastName,
-                age,
+                userId,
                 isAuthenticated: true
             };
             break;
         case actionTypes.CLEAR_AUTH:
             //remove the
-            localStorage.removeItem('token');
+            localStorage.removeItem('accessToken');
             return {
                 isAuthenticated: false
             };

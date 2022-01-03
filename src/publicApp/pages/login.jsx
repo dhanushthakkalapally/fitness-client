@@ -4,8 +4,11 @@ import InputElement from "../../sharedInteface/inputElement";
 import {Link} from "react-router-dom";
 import {getUser, login} from "../../appClient";
 import jwtDecode from "jwt-decode";
+import {useDispatch} from "react-redux";
+import {setAuth} from "../../store/actions/authAction";
 
 const Login = props => {
+    const dispatch =  useDispatch();
     const handleLogin = async (values, {setSubmitting}) => {
         const {email, password} = values;
         const res = await login(email, password);
@@ -15,6 +18,7 @@ const Login = props => {
         const {userId} = decoded_token;
         const {data: userDetails} = await getUser(userId);
         console.log(userDetails);
+        dispatch(setAuth({...userDetails}));
     }
     return (
         <>

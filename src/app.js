@@ -6,6 +6,9 @@ import {Route} from "react-router";
 // import {connect} from "react-redux";
 // import {setAuth} from "./store/actions/authAction";
 import AppRoutes from "./appRoutes";
+import PublicAppHeader from "./publicApp/publicAppHeader";
+import PrivateAppHeader from "./privateApp/privateAppHeader";
+import {useSelector} from "react-redux";
 // import LoadingComponent from "./components/ui/element/loadingComponent";
 // import * as Process from "process";
 // const mapDispatchToProps = dispatch => {
@@ -15,8 +18,16 @@ import AppRoutes from "./appRoutes";
 // };
 
 const App = (props) => {
+     const {auth} = useSelector(state => {
+        return {
+            auth: state.auth
+        }
+    })
+    const {isAuthenticated} = auth;
     return (
         <>
+            {!isAuthenticated && <PublicAppHeader/>}
+            {isAuthenticated && <PrivateAppHeader/>}
             {AppRoutes.map((item, idx) => <Route key={idx} path={item.path} render={(props) => {
                 return <Suspense fallback={<></>}>
                     <item.component props={props}/>

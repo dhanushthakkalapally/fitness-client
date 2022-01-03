@@ -13,7 +13,6 @@ const PublicAppContainer = () => {
     const {isAuthenticated} = auth;
     return (
         <>
-            {!isAuthenticated && <PublicAppHeader/>}
             <Switch>
                 {publicAppRoutes.map((item, idx) => <Route path={item.path} render={props => {
                     const {canAllow, component: Component} = item;
@@ -21,7 +20,7 @@ const PublicAppContainer = () => {
                         return <Component props={props}/>
                     }
                     return <Redirect to="/dashboard"/>
-                }} key={idx}/>)}
+                }} key={idx} exact={item.exact}/>)}
 
             </Switch>
         </>

@@ -13,7 +13,6 @@ const PrivateAppContainer = () => {
     const {isAuthenticated} = auth;
     return (
         <>
-            {isAuthenticated && <PrivateAppHeader/>}
             <Switch>
                 {privateAppRoutes.map((item, idx) =>
                     <Route path={item.path} render={props => {
