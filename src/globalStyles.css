@@ -34,3 +34,29 @@ body {
     border-radius: 15px;
     box-shadow: var(--devsite-header-lower-box-shadow,0 1px 2px 0 rgba(60,64,67,.3),0 2px 6px 2px rgba(60,64,67,.15));
 }
+
+.utPosCenter {
+  position: absolute;
+  top: 25%;
+  left: 38%;
+}
+
+.btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+  background-color: #ff8e01;
+  border-color: #ff8e01;
+}
+
+.btn-block {
+  display: block;
+  width: 100%; }
+  .btn-block + .btn-block {
+    margin-top: 0.5rem; }
