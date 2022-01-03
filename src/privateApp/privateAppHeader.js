@@ -25,7 +25,7 @@ const PrivateAppHeader = props => {
                     </ul>
                     <ul className="navbar-nav">
                         <li className="nav-item navElement me-2">
-                            <a onClick={() => dispatch(clearAuth)}>Sign out
+                            <a onClick={() => dispatch(clearAuth())}>Sign out
                             </a>
                         </li>
                     </ul>
