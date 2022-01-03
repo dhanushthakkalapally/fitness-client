@@ -21,7 +21,7 @@ const PrivateAppContainer = () => {
                         return isAuthenticated ?
                             <item.component props={props}/> :
                             <Redirect to="/login"/>
-                    }} key={idx}/>)}
+                    }} key={idx} exact={item.exact}/>)}
             </Switch>
         </>
     )

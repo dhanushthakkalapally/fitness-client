@@ -1,11 +1,10 @@
 import React from "react";
-import BasicCard from "../../components/ui/element/basicCard";
 
 const About = () => {
     return (
         <>
             <div className="container mt-5 text-center">
-                <BasicCard>
+                <div className="basicCard">
                     Fitness app is all about tracking your fitness goals day by day, and helps to understand calorie in
                     take
                     by
@@ -14,7 +13,7 @@ const About = () => {
                     workouts
                     and
                     how often you are hitting the gym. Finally, we help you get going in your fitness journey.
-                </BasicCard>
+                </div>
             </div>
         </>
     );

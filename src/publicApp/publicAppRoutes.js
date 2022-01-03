@@ -1,7 +1,8 @@
 import {lazy} from "react";
-
+import About from "../publicApp/pages/about";
 const Login = lazy(() => import("../publicApp/pages/login"));
 const LandingPage = lazy(() => import("../publicApp/pages/landingPage"))
+
 
 const publicAppRoutes = [
     {
@@ -10,10 +11,12 @@ const publicAppRoutes = [
      component: Login,
      canAllow: false
     },
-    // {
-    //     name: "signup",
-    //     path: "/signup"
-    // },
+    {
+        component: About,
+        exact: true,
+        name: "about",
+        path: "/about"
+    },
     {
         name: "landingPage",
         path: "",

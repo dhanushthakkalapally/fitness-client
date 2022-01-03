@@ -1,7 +1,0 @@
-.form-control{
-    background-color:  rgb(232, 240, 254);
-}
-.form-control:focus {
-    box-shadow: none !important;
-    border: #343b43 solid 2px ;
-}
