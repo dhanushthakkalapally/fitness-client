@@ -1,12 +1,13 @@
 import React from "react";
 import {Form, Formik} from "formik";
 import InputElement from "../../sharedInteface/inputElement";
+import {Link} from "react-router-dom";
 
 
 const Login = props => {
     return (
         <>
-            <div className="basicCard utPosCenter h-50 w-25">
+            <div className="basicCard utPosCenter w-25">
                 <h3 className="text-center">WELCOME</h3>
                 <Formik initialValues={{email: "", password: ""}} onSubmit={() => console.log("gelkj")}>
                     {() => (<Form>
@@ -37,6 +38,11 @@ const Login = props => {
 
                     }
                 </Formik>
+                <p className="text-center"><strong className="p-2">
+                    Don't have an account ?
+                    <Link to="/register"
+                          className="text-inverted"> Sign
+                        up</Link></strong></p>
             </div>
         </>
     )

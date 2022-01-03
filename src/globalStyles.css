@@ -41,7 +41,8 @@ body {
   left: 38%;
 }
 
-.btn-primary,
+.btn-primary,.btn-primary:hover,
+.btn-primary:focus,
 .btn-primary.disabled:hover,
 .btn-primary[disabled]:hover,
 fieldset[disabled] .btn-primary:hover,

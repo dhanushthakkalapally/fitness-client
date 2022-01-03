@@ -9,7 +9,7 @@ const InputElement = ({label, ...props}) => {
     return (
         <>
         <div>
-            <label htmlFor={props.id || props.name} className="text-capitalize">{label}</label></div>
+            <label htmlFor={props.id || props.name} className="text-capitalize"><strong>{label}</strong></label></div>
             <input className="text-input form-control" {...field} {...props} />
             {meta.touched && meta.error ? (
                 <div className="error">{meta.error}</div>
