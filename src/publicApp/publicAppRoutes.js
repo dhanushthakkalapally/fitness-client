@@ -26,7 +26,7 @@ const publicAppRoutes = [
     },
     {
         name: "landingPage",
-        path: "",
+        path: "/",
         component: LandingPage,
         canAllow: true,
         exact: true

@@ -17,7 +17,6 @@ const Login = props => {
         const decoded_token = jwtDecode(accessToken);
         const {userId} = decoded_token;
         const {data: userDetails} = await getUser(userId);
-        console.log(userDetails);
         dispatch(setAuth({...userDetails}));
     }
     return (
