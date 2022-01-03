@@ -1,9 +1,9 @@
 import axios from "axios";
-
+// console.log(window.__RUNTIME_CONFIG__.DOMAIN_NAME)
 const requestConfig = {
-    baseUrl: window.window.__RUNTIME_CONFIG__.DOMAIN_NAME
+    baseURL: window.__RUNTIME_CONFIG__.DOMAIN_NAME + "/api"
 }
-const instance = axios.create(requestConfig+"/api");
+const instance = axios.create(requestConfig);
 
 /***
  * submits username and password and returns the response
@@ -11,6 +11,10 @@ const instance = axios.create(requestConfig+"/api");
  * @param password
  * @returns {Promise<AxiosResponse<any>>}
  */
-export const login = async (username, password) => {
-    return instance.post("/login", {username, password});
+export const login = async (email, password) => {
+    return instance.post("/login", {email, password});
+}
+
+export const getUser = async (userId) => {
+    return instance.get(`/users/${userId}`)
 }

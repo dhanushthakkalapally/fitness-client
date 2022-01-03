@@ -21,7 +21,7 @@ const PublicAppContainer = () => {
                         return <Component props={props}/>
                     }
                     return <Redirect to="/dashboard"/>
-                }} idx={idx}/>)}
+                }} key={idx}/>)}
 
             </Switch>
         </>
