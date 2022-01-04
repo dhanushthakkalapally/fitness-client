@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const requestConfig = {
-    baseURL: window.__RUNTIME_CONFIG__.DOMAIN_NAME + "/api"
+    baseURL: window.__RUNTIME_CONFIG__.DOMAIN_NAME + "api"
 }
 const instance = axios.create(requestConfig);
 

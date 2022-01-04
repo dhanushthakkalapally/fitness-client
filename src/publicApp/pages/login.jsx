@@ -6,6 +6,7 @@ import {getUser, login} from "../../appClient";
 import jwtDecode from "jwt-decode";
 import {useDispatch} from "react-redux";
 import {setAuth} from "../../store/actions/authAction";
+import {submitSpinner} from "../../utils/generalUtils";
 
 const Login = props => {
     const dispatch =  useDispatch();
@@ -24,7 +25,7 @@ const Login = props => {
             <div className="basicCard utPosCenter w-25">
                 <h3 className="text-center">WELCOME</h3>
                 <Formik initialValues={{email: "", password: ""}} onSubmit={handleLogin}>
-                    {() => (<Form>
+                    {({isSubmitting}) => (<Form>
                         <div className="p-2">
                             <InputElement label="Email:"
                                           required
@@ -44,8 +45,9 @@ const Login = props => {
                         <div className="p-2">
                             <button type="submit"
                                     className="btn btn-block btn-primary btn-md"
+                                    disabled={isSubmitting}
                             >
-                                Login
+                                {submitSpinner(isSubmitting)} Login
                             </button>
                         </div>
                     </Form>)

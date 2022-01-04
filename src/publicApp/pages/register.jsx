@@ -2,6 +2,7 @@ import React from "react";
 import {Formik, Form} from "formik";
 import InputElement from "../../sharedInteface/inputElement";
 import {register} from "../../appClient";
+import {useHistory} from "react-router";
 
 const Register = props => {
     const initialValues = {
@@ -11,10 +12,12 @@ const Register = props => {
         confirmPassword: "",
         email: ""
     }
+    const history = useHistory();
     const handleSignUp = async (values, {setSubmitting}) => {
         const {firstName, lastName, email, password} = values;
         const res = await register(firstName, lastName, email, password);
-        console.log(res.data)
+        console.log(res.data);
+        history.push("/welcome");
     }
 
 
