@@ -24,6 +24,7 @@ const Register = props => {
     return (
         <>
             <div className="basicCard utPosCenter w-25">
+                <h3 className="text-center">Sign up</h3>
                 <Formik initialValues={initialValues}
                         onSubmit={handleSignUp}
                 >

@@ -1,23 +1,11 @@
 import React, {Suspense} from "react";
 import {Route} from "react-router";
-// import PublicSiteContainer from "./components/publicSite/publicSiteContainer";
-// import getPathUrl from "./utils/routesUtil";
-// import DashboardContainer from "./components/dashboard/dashboardContainer";
-// import {connect} from "react-redux";
-// import {setAuth} from "./store/actions/authAction";
 import AppRoutes from "./appRoutes";
 import PublicAppHeader from "./publicApp/publicAppHeader";
 import PrivateAppHeader from "./privateApp/privateAppHeader";
 import {useSelector} from "react-redux";
-// import LoadingComponent from "./components/ui/element/loadingComponent";
-// import * as Process from "process";
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         setAuth: (details) => dispatch(setAuth(details))
-//     }
-// };
 
-const App = (props) => {
+const App = () => {
      const {auth} = useSelector(state => {
         return {
             auth: state.auth
