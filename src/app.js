@@ -1,17 +1,26 @@
-import React, {Suspense} from "react";
+import React, {Suspense, useEffect} from "react";
 import {Route} from "react-router";
 import AppRoutes from "./appRoutes";
 import PublicAppHeader from "./publicApp/publicAppHeader";
 import PrivateAppHeader from "./privateApp/privateAppHeader";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {checkAuth} from "./store/actions/authAction";
 
 const App = () => {
-     const {auth} = useSelector(state => {
+    const {auth} = useSelector(state => {
         return {
             auth: state.auth
         }
     })
-    const {isAuthenticated} = auth;
+    const dispatch = useDispatch();
+     useEffect(() => {
+        dispatch(checkAuth())
+    }, [])
+    const {isAuthenticated, authLoading} = auth;
+    if (authLoading) {
+        return <>Please wait site is loading...</>
+    }
+
     return (
         <>
             {!isAuthenticated && <PublicAppHeader/>}
@@ -23,6 +32,7 @@ const App = () => {
             }}/>)}
         </>
     );
+
 }
 
 

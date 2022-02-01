@@ -3,7 +3,8 @@ import {instance as client} from "../../appClient";
 
 const initialState = {
     isAuthenticated: false,
-    tokens: {}
+    tokens: {},
+    authLoading: true
 };
 
 
@@ -38,6 +39,12 @@ const authReducer = (state = initialState, action) => {
                 isAuthenticated: false
             };
             break;
+        case actionTypes.SET_AUTH_LOADING:
+            const {authLoading} = action;
+            return {
+                ...state,
+                authLoading
+            }
         default:
             return {...state};
 
