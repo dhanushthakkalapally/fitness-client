@@ -5,20 +5,22 @@ import {Link} from "react-router-dom";
 import {getUser, login} from "../../appClient";
 import jwtDecode from "jwt-decode";
 import {useDispatch} from "react-redux";
-import {setAuth} from "../../store/actions/authAction";
+import {configureAuth, setAuth} from "../../store/actions/authAction";
 import {submitSpinner} from "../../utils/generalUtils";
 
-const Login = props => {
-    const dispatch =  useDispatch();
+const Login = () => {
+    const dispatch = useDispatch();
     const handleLogin = async (values, {setSubmitting}) => {
         const {email, password} = values;
         const res = await login(email, password);
         const {data} = res;
         const {accessToken} = data;
-        const decoded_token = jwtDecode(accessToken);
-        const {userId} = decoded_token;
-        const {data: userDetails} = await getUser(userId);
-        dispatch(setAuth({...userDetails, accessToken}));
+        console.log("accessTOken", accessToken);
+        dispatch(configureAuth(accessToken));
+        // const decoded_token = jwtDecode(accessToken);
+        // const {userId} = decoded_token;
+        // const {data: userDetails} = await getUser(userId);
+        // dispatch(setAuth({...userDetails, accessToken}));
     }
     return (
         <>
@@ -54,11 +56,15 @@ const Login = props => {
 
                     }
                 </Formik>
-                <p className="text-center"><strong className="p-2">
-                    Don't have an account ?
-                    <Link to="/register"
-                          className="text-inverted"> Sign
-                        up</Link></strong></p>
+                <p className="text-center">
+                    <strong className="p-2">
+                        Don't have an account ?
+                        <Link to="/register"
+                              className="text-inverted"> Sign
+                            up
+                        </Link>
+                    </strong>
+                </p>
             </div>
         </>
     )

@@ -4,7 +4,7 @@ import InputElement from "../../sharedInteface/inputElement";
 import {register} from "../../appClient";
 import {useHistory} from "react-router";
 
-const Register = props => {
+const Register = () => {
     const initialValues = {
         firstName: "",
         lastName: "",

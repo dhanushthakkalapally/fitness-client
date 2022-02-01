@@ -3,7 +3,7 @@ import axios from "axios";
 const requestConfig = {
     baseURL: window.__RUNTIME_CONFIG__.DOMAIN_NAME + "api"
 }
-const instance = axios.create(requestConfig);
+export const instance = axios.create(requestConfig);
 
 /***
  * submits username and password and returns the response
