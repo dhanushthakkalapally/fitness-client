@@ -15,7 +15,7 @@ const App = () => {
     const dispatch = useDispatch();
      useEffect(() => {
         dispatch(checkAuth())
-    }, [])
+    }, [dispatch])
     const {isAuthenticated, authLoading} = auth;
     if (authLoading) {
         return <>Please wait site is loading...</>

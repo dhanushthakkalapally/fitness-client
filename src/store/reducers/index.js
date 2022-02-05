@@ -6,4 +6,6 @@ const combinedState = combineReducers({
     auth: authReducer
 });
 
-export default () => createStore(combinedState, applyMiddleware(thunk));
+const store = () => createStore(combinedState, applyMiddleware(thunk));
+
+export default store;

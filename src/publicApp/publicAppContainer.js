@@ -2,7 +2,6 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {Redirect, Route, Switch} from "react-router";
 import publicAppRoutes from "../publicApp/publicAppRoutes";
-import PublicAppHeader from "./publicAppHeader";
 
 const PublicAppContainer = () => {
     const {auth} = useSelector(state => {

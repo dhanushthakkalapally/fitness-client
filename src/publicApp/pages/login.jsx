@@ -2,25 +2,19 @@ import React from "react";
 import {Form, Formik} from "formik";
 import InputElement from "../../sharedInteface/inputElement";
 import {Link} from "react-router-dom";
-import {getUser, login} from "../../appClient";
-import jwtDecode from "jwt-decode";
+import {login} from "../../appClient";
 import {useDispatch} from "react-redux";
-import {configureAuth, setAuth} from "../../store/actions/authAction";
+import {configureAuth} from "../../store/actions/authAction";
 import {submitSpinner} from "../../utils/generalUtils";
 
 const Login = () => {
     const dispatch = useDispatch();
-    const handleLogin = async (values, {setSubmitting}) => {
+    const handleLogin = async (values) => {
         const {email, password} = values;
         const res = await login(email, password);
         const {data} = res;
         const {accessToken} = data;
-        console.log("accessTOken", accessToken);
         dispatch(configureAuth(accessToken));
-        // const decoded_token = jwtDecode(accessToken);
-        // const {userId} = decoded_token;
-        // const {data: userDetails} = await getUser(userId);
-        // dispatch(setAuth({...userDetails, accessToken}));
     }
     return (
         <>

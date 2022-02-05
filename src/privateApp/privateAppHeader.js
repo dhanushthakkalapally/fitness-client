@@ -1,10 +1,10 @@
 import React from "react";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {clearAuth} from "../store/actions/authAction";
 import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-const PrivateAppHeader = props => {
+const PrivateAppHeader = () => {
     const dispatch = useDispatch();
 
     return (
@@ -20,7 +20,13 @@ const PrivateAppHeader = props => {
                     </ul>
                     <ul className="navbar-nav">
                         <li className="nav-item navElement me-2">
-                            <a onClick={() => dispatch(clearAuth())}>Sign out
+                            <a href="#" onClick={(event) => {
+                                event.preventDefault();
+                                dispatch(clearAuth())
+                                }
+                            }
+                            >
+                                Sign out
                             </a>
                         </li>
                     </ul>

@@ -32,12 +32,18 @@ export function setAuthLoading(status) {
 export function configureAuth(accessToken) {
     return async dispatch => {
         // now we can decode the token and send the request if the token is not expired
-        const decodedToken = jwtDecode(accessToken);
-        const {userId} = decodedToken;
-        dispatch(setTokens({accessToken}));
-        const {data: userDetails} = await getUser(userId);
-        dispatch(setAuth({...userDetails}));
-        dispatch(setAuthLoading(false));
+        try {
+            const decodedToken = jwtDecode(accessToken);
+            const {userId} = decodedToken;
+            dispatch(setTokens({accessToken}));
+            const {data: userDetails} = await getUser(userId);
+            dispatch(setAuth({...userDetails}));
+            dispatch(setAuthLoading(false));
+        } catch (exception) {
+            console.log(exception);
+            dispatch(clearAuth());
+            dispatch(setAuthLoading(false));
+        }
     }
 }
 

@@ -3,7 +3,7 @@ import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 
-const PublicAppHeader = props => {
+const PublicAppHeader = () => {
     const {auth} = useSelector(state => {
         return {
             auth: state.auth
@@ -26,7 +26,10 @@ const PublicAppHeader = props => {
                         {isAuthenticated && <li className="nav-item navElement me-2"><Link
                             to={"/dashboard"}>Dashboard</Link></li>}
                         {isAuthenticated &&
-                            <li className="nav-item navElement me-2"><a onClick={this.handleSignOut}>Sign out</a></li>}
+                            <li className="nav-item navElement me-2">
+                                <a onClick={this.handleSignOut}>Sign out</a>
+                            </li>
+                        }
                     </ul>
                 </Navbar.Collapse>
             </div>

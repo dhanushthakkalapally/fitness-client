@@ -13,10 +13,9 @@ const Register = () => {
         email: ""
     }
     const history = useHistory();
-    const handleSignUp = async (values, {setSubmitting}) => {
+    const handleSignUp = async (values) => {
         const {firstName, lastName, email, password} = values;
-        const res = await register(firstName, lastName, email, password);
-        console.log(res.data);
+        await register(firstName, lastName, email, password);
         history.push("/welcome");
     }
 

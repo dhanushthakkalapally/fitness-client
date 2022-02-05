@@ -20,7 +20,6 @@ const authReducer = (state = initialState, action) => {
                 userId,
                 isAuthenticated: true
             };
-            break;
         case actionTypes.SET_TOKENS:
             const {accessToken} = action;
             localStorage.setItem("accessToken", accessToken);
@@ -31,14 +30,12 @@ const authReducer = (state = initialState, action) => {
                     accessToken
                 }
             }
-            break;
         case actionTypes.CLEAR_AUTH:
             //remove the token from the local storage
             localStorage.removeItem('accessToken');
             return {
                 isAuthenticated: false
             };
-            break;
         case actionTypes.SET_AUTH_LOADING:
             const {authLoading} = action;
             return {
