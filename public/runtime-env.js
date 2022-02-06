@@ -1,1 +1,1 @@
-window.__RUNTIME_CONFIG__ = {"DOMAIN_NAME":"http://127.0.0.1:5000/"};
+window.__RUNTIME_CONFIG__ = {"DOMAIN_NAME":"http://fitne-loadb-19udbyjlv59ab-1704962520.eu-west-2.elb.amazonaws.com/"};

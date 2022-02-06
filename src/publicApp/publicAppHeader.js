@@ -14,7 +14,7 @@ const PublicAppHeader = () => {
         <Navbar expand="lg" className="navBar p-0">
             <div className="container">
                 <Navbar.Brand className="navBrand">
-                    <Link to={""}>Fitness</Link>
+                    <Link to={""}>MyYbe</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
