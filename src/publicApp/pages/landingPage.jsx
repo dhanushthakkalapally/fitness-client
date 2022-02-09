@@ -1,10 +1,11 @@
 import React from "react";
+import myImage from "../../assets/myImage.jpg";
 
 function LandingPage() {
     return (
         <>
-            <div className="text-center mt-5">
-                <h2>Hey! There Welcome To Fitness Tracker: your one step towards goals :)</h2>
+            <div className="text-center vw-100 vh-100 bg">
+                <h2 className="p-2">Welcome</h2>
             </div>
         </>
     )

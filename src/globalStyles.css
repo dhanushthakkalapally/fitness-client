@@ -61,3 +61,16 @@ fieldset[disabled] .btn-primary.focus {
   width: 100%; }
   .btn-block + .btn-block {
     margin-top: 0.5rem; }
+
+  .bg {
+  /* The image used */
+  background-image: url("./assets/myImage.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
