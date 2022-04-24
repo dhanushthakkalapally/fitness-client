@@ -37,6 +37,7 @@ class Dashboard extends Component {
         super();
         this.state = {activities: []}
     }
+
     componentDidMount() {
         const {auth} = this.props;
         const {userId} = auth;
@@ -50,8 +51,10 @@ class Dashboard extends Component {
         const {auth} = this.props;
         const {activities} = this.state;
         return (
-            <section className="h-100">
-                <Table columnConfig={columnsConfig} data={activities} tableTitle="Activities"/>
+            <section className="h-100 d-flex justify-content-center">
+                <div className="w-50">
+                     <Table columnConfig={columnsConfig} data={activities} tableTitle="Activities"/>
+                </div>
             </section>
         )
     }

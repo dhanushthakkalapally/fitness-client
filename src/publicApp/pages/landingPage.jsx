@@ -3,8 +3,8 @@ import React from "react";
 function LandingPage() {
     return (
         <>
-            <div className="text-center vw-100 vh-100 bg">
-                <h2 className="p-2">Welcome</h2>
+            <div className="text-center vh-100 bg">
+                {/*<h2 className="p-2">Welcome</h2>*/}
             </div>
         </>
     )
