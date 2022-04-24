@@ -5,6 +5,7 @@ import Table from "../../sharedInteface/table";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import {formatDate, formatDateTime} from "../../utils/generalUtils";
+import moment from "moment";
 
 const mapStateToProps = state => {
     return {
@@ -55,28 +56,38 @@ class Dashboard extends Component {
     }
 
     getActivityTrackerValues = (activities) => {
-        activities.map(activity => {
-
+        return activities.map(activity =>  {
+            const {date_created: date} = activity;
+            const {duration} =  activities[0]
+            const formattedTime = moment(duration, "hh:mm:ss");
+            const hours = formattedTime.hours() * 60;
+            const minutes = formattedTime.minutes();
+            return {date, count:hours + minutes}
         })
     }
 
 
     render() {
         const {activities} = this.state;
-        // const values = this.getActivityTrackerValues(activities);
+        const values = this.getActivityTrackerValues(activities);
+        console.log(values)
         return (
             <section className="h-100 d-flex justify-content-center">
                 <div className="w-50">
                     <Table columnConfig={columnsConfig} data={activities} tableTitle="Activities" enableSearch/>
                     <div>
                         <h2>Activity Tracker</h2>
-                        {/*<div className="border border-4 border-dark">*/}
-                        {/*    <CalendarHeatmap*/}
-                        {/*        startDate={new Date('2021-12-31')}*/}
-                        {/*        endDate={new Date('2022-12-31')}*/}
-                        {/*        values={values}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
+                        <div className="border border-4 border-dark">
+                            <CalendarHeatmap
+                                startDate={moment().startOf('year') - 1}
+                                endDate={new Date('2022-12-31')}
+                                values={values}
+                                showMonthLabels
+                                gutterSize={5}
+
+                                showWeekdayLabels
+                            />
+                        </div>
                     </div>
                 </div>
 
