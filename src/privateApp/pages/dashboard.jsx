@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {getActivities} from "../../appClient";
+import {createActivity, getActivities} from "../../appClient";
 import Table from "../../sharedInteface/table";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
@@ -77,9 +77,24 @@ class Dashboard extends Component {
         return {
             date: `${moment().date()}-${moment().month()}-${moment().year()}`,
             currWeight: 55,
-            startTime: `${moment().hours()}:${moment().minutes()}:${moment().seconds()}`,
-            endTime: `${moment().add(1, "hours").hours()}:${moment().minutes()}:${moment().seconds()}`
+            startTime: `${moment().get("hour")}:${moment().get("m")}:${moment().get("s")}`,
+            endTime: `${moment().add(1, "hour").hours()}:${moment().minutes()}:${moment().seconds()}`
         }
+    }
+
+    handleActivitySubmit = (values) => {
+        console.log(values)
+        const {auth} = this.props;
+        const {userId} = auth;
+        const {startTime: start_time, date: activity_date, currWeight: curr_weight, endTime: end_time} = values;
+        const reqData = {
+            start_time: `${activity_date} ${start_time}`,
+            activity_date,
+            curr_weight,
+            end_time: `${activity_date} ${end_time}`,
+            user_id: userId
+        }
+        createActivity(userId, reqData).then(r => console.log(r.data));
     }
 
     render() {
@@ -96,7 +111,7 @@ class Dashboard extends Component {
                                       }}
                                       showFooter={false}
                 >
-                    <Formik initialValues={initialValues}>
+                    <Formik initialValues={initialValues} onSubmit={this.handleActivitySubmit}>
                         {
                             () => (
                                 <Form>
