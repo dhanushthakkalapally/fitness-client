@@ -16,9 +16,10 @@ export const submitSpinner = (props) => {
  * @param dateTime {string}
  */
 export const formatDateTime = (dateTime) => {
-    return moment(dateTime).format("ddd, MMMM Do YYYY, h:mm:ss a");
+    return moment(dateTime, "YYYY-MM-DD hh:mm:ss").format("ddd, MMMM Do YYYY, h:mm:ss a");
 };
 
 export const formatDate = (dateTime) => {
-    return moment(dateTime).format("ddd, MMMM Do YYYY");
+    console.log(dateTime)
+    return moment(dateTime, "YYYY-MM-DD").format("ddd, MMMM Do YYYY");
 };

@@ -9,6 +9,7 @@
 #root {
     height: inherit;
 }
+
 .btn-lg {
     background-color: #ff8e01;
     color: #fffffa;
@@ -88,10 +89,27 @@ fieldset[disabled] .btn-primary.focus {
 }
 
 .utBg1 {
-      background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .form-control:focus {
     border-color: #0a0606;
+    box-shadow: none;
+}
+
+.btn-check:active + .btn-primary, .btn-check:checked + .btn-primary, .btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #ff8e01;
+    border-color: #ff8e01;
+}
+
+.btn-check:focus+.btn-primary, .btn-primary:focus {
+     color: #fff;
+     background-color: #ff8e01;
+     border-color: #ff8e01;
+     box-shadow: none;
+}
+
+.btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus {
     box-shadow: none;
 }

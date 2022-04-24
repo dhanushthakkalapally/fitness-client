@@ -96,7 +96,7 @@ const Table = (props) => {
     const renderToolBar = () => {
         return (
             <section>
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between align-items-center">
                     <div>
                         <h2 className="text-center m-2">{tableTitle}
                         </h2>

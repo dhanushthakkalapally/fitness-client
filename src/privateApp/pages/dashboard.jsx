@@ -17,7 +17,7 @@ const columnsConfig = [
     {
         Header: "Date",
         accessor: "date_created",
-         Cell: (value) => formatDate(value)
+         Cell: ({value}) => formatDate(value)
     },
     {
         Header: "weight",
@@ -30,12 +30,12 @@ const columnsConfig = [
     {
         Header: "Start Time",
         accessor: "start_time",
-        Cell: (value) => formatDateTime(value)
+        Cell: ({value}) => formatDateTime(value)
     },
     {
         Header: "End Time",
         accessor: "end_time",
-                Cell: (value) => formatDateTime(value)
+                Cell: ({value}) => formatDateTime(value)
 
     }
 ]
@@ -53,6 +53,7 @@ class Dashboard extends Component {
             const {data} = res;
             this.setState({activities: data})
         })
+        document.title = "dashboard";
     }
 
     getActivityTrackerValues = (activities) => {
@@ -70,11 +71,14 @@ class Dashboard extends Component {
     render() {
         const {activities} = this.state;
         const values = this.getActivityTrackerValues(activities);
-        console.log(values)
         return (
             <section className="h-100 d-flex justify-content-center">
-                <div className="w-50">
-                    <Table columnConfig={columnsConfig} data={activities} tableTitle="Activities" enableSearch/>
+                <div className="w-50 p-5">
+                    <Table columnConfig={columnsConfig} data={activities} tableTitle="Activities" enableSearch
+                        tableToolBarElements={() => (
+                            <span><button className="btn btn-sm btn-primary">Add Activity</button></span>
+                        )}
+                    />
                     <div>
                         <h2>Activity Tracker</h2>
                         <div className="border border-4 border-dark">
@@ -84,7 +88,6 @@ class Dashboard extends Component {
                                 values={values}
                                 showMonthLabels
                                 gutterSize={5}
-
                                 showWeekdayLabels
                             />
                         </div>
