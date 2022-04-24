@@ -40,3 +40,8 @@ export const register = async (firstName, lastName, email, password) => {
         lastName
     })
 }
+
+export const getActivities = async (userId) => {
+    const url = `/users/${userId}/activities`
+    return instance.get(url);
+}

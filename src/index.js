@@ -6,6 +6,8 @@ import './globalStyles.css';
 import Store from '../src/store/reducers';
 import {Provider} from "react-redux";
 import App from './app';
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 
 ReactDOM.render(
@@ -14,9 +16,11 @@ ReactDOM.render(
         where components can subscribe for the state and dispatch
         actions to manipulate the state*/}
         <Provider store={Store()}>
+            <DndProvider backend={HTML5Backend}>
             <BrowserRouter>
                 <App/>
             </BrowserRouter>
+                </DndProvider>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')

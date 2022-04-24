@@ -11,7 +11,7 @@ const PrivateAppContainer = () => {
     })
     const {isAuthenticated} = auth;
     return (
-        <>
+        <section style={{height:"96vh"}}>
             <Switch>
                 {privateAppRoutes.map((item, idx) =>
                     <Route path={item.path} render={props => {
@@ -20,7 +20,7 @@ const PrivateAppContainer = () => {
                             <Redirect to="/login"/>
                     }} key={idx} exact={item.exact}/>)}
             </Switch>
-        </>
+        </section>
     )
 }
 
