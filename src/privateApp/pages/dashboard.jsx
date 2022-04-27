@@ -52,13 +52,17 @@ class Dashboard extends Component {
         }
     }
 
-    componentDidMount() {
+    readActivities = () => {
         const {auth} = this.props;
         const {userId} = auth;
         getActivities(userId).then(res => {
             const {data} = res;
             this.setState({activities: data})
         })
+    }
+
+    componentDidMount() {
+        this.readActivities();
         document.title = "dashboard";
     }
 
@@ -83,7 +87,6 @@ class Dashboard extends Component {
     }
 
     handleActivitySubmit = (values) => {
-        console.log(values)
         const {auth} = this.props;
         const {userId} = auth;
         const {startTime: start_time, date: activity_date, currWeight: curr_weight, endTime: end_time} = values;
@@ -94,7 +97,10 @@ class Dashboard extends Component {
             end_time: `${activity_date} ${end_time}`,
             user_id: userId
         }
-        createActivity(userId, reqData).then(r => console.log(r.data));
+        createActivity(userId, reqData).then(() => {
+            this.readActivities();
+          this.setState({activityCreateModal: {showModal: false}})
+        });
     }
 
     render() {
