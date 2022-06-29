@@ -3,19 +3,30 @@ import {Formik, Form} from "formik";
 import InputElement from "../../sharedInteface/inputElement";
 import {register} from "../../appClient";
 import {useHistory} from "react-router";
+import { Auth } from 'aws-amplify';
 
 const Register = () => {
     const initialValues = {
-        firstName: "",
-        lastName: "",
+        username: "",
         password: "",
         confirmPassword: "",
         email: ""
     }
     const history = useHistory();
     const handleSignUp = async (values) => {
-        const {firstName, lastName, email, password} = values;
-        await register(firstName, lastName, email, password);
+        const {username, email, password} = values;
+        console.log(email)
+        const res =  await Auth.signUp({
+            username: email,
+            password,
+            attributes: {
+                preferred_username: username,
+                // gender: "Male",
+                // firstname: firstName,
+                // lastname: lastName
+            }
+        });
+        console.log(res)
         history.push("/welcome");
     }
 
@@ -33,24 +44,14 @@ const Register = () => {
                     >
                         {
                             () => (<Form>
-                                <div className="d-flex justify-content-between">
                                     <div className="p-2">
-                                        <InputElement label="Firstname:"
+                                        <InputElement label="Username:"
                                                       required
                                                       type="input"
-                                                      id="firstName"
-                                                      name="firstName"
+                                                      id="username"
+                                                      name="username"
                                         />
                                     </div>
-                                    <div className="p-2">
-                                        <InputElement label="Lastname:"
-                                                      required
-                                                      type="input"
-                                                      id="lastName"
-                                                      name="lastName"
-                                        />
-                                    </div>
-                                </div>
                                 <div className="p-2">
                                     <InputElement label="Email:"
                                                   required
