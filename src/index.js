@@ -8,7 +8,10 @@ import {Provider} from "react-redux";
 import App from './app';
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import "./amplify";
+import {Auth} from "aws-amplify";
 
+console.log("here is the Auth config", Auth);
 
 ReactDOM.render(
     <React.StrictMode>

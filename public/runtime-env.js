@@ -1,1 +1,0 @@
-window.__RUNTIME_CONFIG__ = {"DOMAIN_NAME":"http://localhost:5000/"};
