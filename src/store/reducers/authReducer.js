@@ -16,7 +16,7 @@ const authReducer = (state = initialState, action) => {
             const {userDetails, isAuthenticated} = payload
             return {
                 isAuthenticated,
-                ...userDetails
+                 userDetails: {...userDetails}
             };
         case actionTypes.SET_TOKENS:
             const {accessToken} = action;

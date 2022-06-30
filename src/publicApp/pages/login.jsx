@@ -4,7 +4,7 @@ import InputElement from "../../sharedInteface/inputElement";
 import {Link} from "react-router-dom";
 import {login} from "../../appClient";
 import {useDispatch} from "react-redux";
-import {configureAuth, setAuth} from "../../store/actions/authAction";
+import {configureAuth} from "../../store/actions/authAction";
 import {submitSpinner} from "../../utils/generalUtils";
 import {Auth} from "aws-amplify";
 
@@ -14,7 +14,7 @@ const Login = () => {
         const {email, password} = values;
         const res = await Auth.signIn(email, password);
         console.log(res);
-        dispatch(setAuth({isAuthenticated: true}));
+        dispatch(configureAuth());
     }
 
     useEffect(() => {

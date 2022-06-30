@@ -4,7 +4,7 @@ import AppRoutes from "./appRoutes";
 import PublicAppHeader from "./publicApp/publicAppHeader";
 import PrivateAppHeader from "./privateApp/privateAppHeader";
 import {useDispatch, useSelector} from "react-redux";
-import {checkAuth, configureAuth} from "./store/actions/authAction";
+import {configureAuth} from "./store/actions/authAction";
 
 const App = () => {
     const {auth} = useSelector(state => {

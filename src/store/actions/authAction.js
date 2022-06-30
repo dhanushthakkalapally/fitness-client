@@ -52,7 +52,7 @@ export function configureAuth() {
                 dispatch(setAuth({isAuthenticated: true, userDetails: attributes}))
             }
             // TODO: NEED TO REMOVE THE TIMEOUT FUNCTION On Logout
-            console.log("I have been called again", ((expiryTime/1000)/60)/60)
+            console.log("I have been called again", ((expiryTime/1000)/60))
             const timeOutFunc = setTimeout(() => {
                 dispatch(configureAuth());
             }, expiryTime)
