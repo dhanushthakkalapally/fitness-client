@@ -7,9 +7,17 @@ const calculateExpiry = (issueTime, expiryTime) => {
 
 
 export function clearAuth() {
-    return {
-        type: CLEAR_AUTH
+    return async (dispatch) => {
+        try {
+            await Auth.signOut()
+            console.log("hiii")
+            dispatch({type: CLEAR_AUTH})
+        } catch (e) {
+            console.error(e)
+        }
+
     }
+
 }
 
 export function setAuth(details) {
@@ -52,7 +60,7 @@ export function configureAuth() {
                 dispatch(setAuth({isAuthenticated: true, userDetails: attributes}))
             }
             // TODO: NEED TO REMOVE THE TIMEOUT FUNCTION On Logout
-            console.log("I have been called again", ((expiryTime/1000)/60))
+            console.log("I have been called again", ((expiryTime / 1000) / 60))
             const timeOutFunc = setTimeout(() => {
                 dispatch(configureAuth());
             }, expiryTime)

@@ -30,7 +30,8 @@ const authReducer = (state = initialState, action) => {
         case actionTypes.CLEAR_AUTH:
             //remove the token from the local storage
             return {
-                isAuthenticated: false
+                isAuthenticated: false,
+                userDetails: {}
             };
         case actionTypes.SET_AUTH_LOADING:
             const {authLoading} = action;
@@ -40,7 +41,6 @@ const authReducer = (state = initialState, action) => {
             }
         default:
             return {...state};
-
     }
 };
 
