@@ -17,7 +17,7 @@ const PrivateAppHeader = () => {
         <Navbar expand="lg" className="navBar p-0">
             <div className="container">
                 <Navbar.Brand className="navBrand">
-                    <Link to="/"> MyYbe </Link>
+                    <Link to="/"> TurtleTurtleRun </Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse className="justify-content-between" id="responsive-navbar-nav">
