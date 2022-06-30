@@ -1,6 +1,10 @@
 import {CLEAR_AUTH, SET_AUTH, SET_AUTH_LOADING, SET_TOKENS} from '../actionTypes/authActionTypes';
-import jwtDecode from "jwt-decode";
-import {getUser} from "../../appClient";
+import {Auth} from "aws-amplify";
+
+const calculateExpiry = (issueTime, expiryTime) => {
+    return ((expiryTime * 1000) - new Date().getTime());
+};
+
 
 export function clearAuth() {
     return {
@@ -11,7 +15,7 @@ export function clearAuth() {
 export function setAuth(details) {
     return {
         type: SET_AUTH,
-        ...details
+        payload: {...details}
     }
 }
 
@@ -29,34 +33,33 @@ export function setAuthLoading(status) {
     }
 }
 
-export function configureAuth(accessToken) {
-    return async dispatch => {
+export function configureAuth() {
+    return async (dispatch, getState) => {
+        const {auth} = getState();
+        const {isAuthenticated} = auth;
         // now we can decode the token and send the request if the token is not expired
         try {
-            const decodedToken = jwtDecode(accessToken);
-            const {userId} = decodedToken;
-            dispatch(setTokens({accessToken}));
-            const {data: userDetails} = await getUser(userId);
-            dispatch(setAuth({...userDetails}));
-            dispatch(setAuthLoading(false));
+            const user = await Auth.currentAuthenticatedUser();
+            const {attributes, signInUserSession} = user;
+            const {accessToken} = signInUserSession;
+            const {payload} = accessToken;
+            const {
+                iat,
+                exp
+            } = payload;
+            const expiryTime = calculateExpiry(iat, exp);
+            if (!isAuthenticated) {
+                dispatch(setAuth({isAuthenticated: true, userDetails: attributes}))
+            }
+            // TODO: NEED TO REMOVE THE TIMEOUT FUNCTION On Logout
+            console.log("I have been called again", ((expiryTime/1000)/60)/60)
+            const timeOutFunc = setTimeout(() => {
+                dispatch(configureAuth());
+            }, expiryTime)
         } catch (exception) {
             console.log(exception);
             dispatch(clearAuth());
             dispatch(setAuthLoading(false));
-        }
-    }
-}
-
-export function checkAuth() {
-    return async dispatch => {
-        const accessToken = localStorage.getItem("accessToken")
-        if (accessToken) {
-            // if there is access token then don't worry
-            console.log(accessToken)
-            dispatch(configureAuth(accessToken))
-        } else {
-            // if there is no access token then
-            dispatch(setAuthLoading(false))
         }
     }
 }

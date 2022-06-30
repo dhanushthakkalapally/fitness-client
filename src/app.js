@@ -4,7 +4,7 @@ import AppRoutes from "./appRoutes";
 import PublicAppHeader from "./publicApp/publicAppHeader";
 import PrivateAppHeader from "./privateApp/privateAppHeader";
 import {useDispatch, useSelector} from "react-redux";
-import {checkAuth} from "./store/actions/authAction";
+import {checkAuth, configureAuth} from "./store/actions/authAction";
 
 const App = () => {
     const {auth} = useSelector(state => {
@@ -13,11 +13,14 @@ const App = () => {
         }
     })
     const dispatch = useDispatch();
-     useEffect(() => {
-        dispatch(checkAuth())
+
+    useEffect(() => {
+        dispatch(configureAuth())
     }, [dispatch])
+
     const {isAuthenticated, authLoading} = auth;
-    if (authLoading) {
+
+     if (authLoading) {
         return <>Please wait site is loading...</>
     }
 

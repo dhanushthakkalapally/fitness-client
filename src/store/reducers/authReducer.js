@@ -2,7 +2,8 @@ import * as actionTypes from '../actionTypes/authActionTypes';
 import {instance as client} from "../../appClient";
 
 const initialState = {
-    isAuthenticated: false
+    isAuthenticated: false,
+    userDetails: {}
 };
 
 
@@ -11,12 +12,14 @@ const authReducer = (state = initialState, action) => {
         case actionTypes.SET_AUTH:
             // This means user has now authenticated so store the token in local storage and token will be taken in every request
             // now set the headers for the client
+            const {payload} = action;
+            const {userDetails, isAuthenticated} = payload
             return {
-                isAuthenticated: true
+                isAuthenticated,
+                ...userDetails
             };
         case actionTypes.SET_TOKENS:
             const {accessToken} = action;
-            localStorage.setItem("accessToken", accessToken);
             client.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             return {
                 ...state,
@@ -26,7 +29,6 @@ const authReducer = (state = initialState, action) => {
             }
         case actionTypes.CLEAR_AUTH:
             //remove the token from the local storage
-            localStorage.removeItem('accessToken');
             return {
                 isAuthenticated: false
             };
