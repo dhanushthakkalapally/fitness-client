@@ -1,12 +1,18 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {clearAuth} from "../store/actions/authAction";
 import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {Auth} from "aws-amplify";
 
 const PrivateAppHeader = () => {
     const dispatch = useDispatch();
-
+    const [user, setUser] = useState(undefined);
+    useEffect(() => {
+        Auth.currentAuthenticatedUser().then(res => {
+            console.log(res);
+        })
+    }, [])
     return (
         <Navbar expand="lg" className="navBar p-0">
             <div className="container">

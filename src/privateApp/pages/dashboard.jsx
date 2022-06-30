@@ -5,10 +5,7 @@ import Table from "../../sharedInteface/table";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import {formatDate, formatDateTime} from "../../utils/generalUtils";
-import moment from "moment";
-import SimpleTwoButtonModal from "../../hooks/simpleTwoButtonModal";
-import {Formik, Form} from "formik";
-import InputElement from "../../sharedInteface/inputElement";
+import {Auth, Amplify} from "aws-amplify";
 
 const mapStateToProps = state => {
     return {
@@ -43,133 +40,11 @@ const columnsConfig = [
     }
 ]
 
-class Dashboard extends Component {
-    constructor() {
-        super();
-        this.state = {
-            activities: [],
-            activityCreateModal: {showModal: false}
-        }
-    }
+const Dashboard = () => {
 
-    readActivities = () => {
-        const {auth} = this.props;
-        const {userId} = auth;
-        getActivities(userId).then(res => {
-            const {data} = res;
-            this.setState({activities: data})
-        })
-    }
-
-    componentDidMount() {
-        this.readActivities();
-        document.title = "dashboard";
-    }
-
-    getActivityTrackerValues = (activities) => {
-        return activities.map(activity => {
-            const {activity_date: date} = activity;
-            const {duration} = activities[0]
-            const formattedTime = moment(duration, "hh:mm:ss");
-            const hours = formattedTime.hours() * 60;
-            const minutes = formattedTime.minutes();
-            return {date, count: hours + minutes}
-        })
-    }
-
-    getInitialValues = () => {
-        return {
-            date: `${moment().date()}-${moment().month()}-${moment().year()}`,
-            currWeight: 55,
-            startTime: `${moment().get("hour")}:${moment().get("m")}:${moment().get("s")}`,
-            endTime: `${moment().add(1, "hour").hours()}:${moment().minutes()}:${moment().seconds()}`
-        }
-    }
-
-    handleActivitySubmit = (values) => {
-        const {auth} = this.props;
-        const {userId} = auth;
-        const {startTime: start_time, date: activity_date, currWeight: curr_weight, endTime: end_time} = values;
-        const reqData = {
-            start_time: `${activity_date} ${start_time}`,
-            activity_date,
-            curr_weight,
-            end_time: `${activity_date} ${end_time}`,
-            user_id: userId
-        }
-        createActivity(userId, reqData).then(() => {
-            this.readActivities();
-          this.setState({activityCreateModal: {showModal: false}})
-        });
-    }
-
-    render() {
-        const {activities, activityCreateModal} = this.state;
-        const {showModal} = activityCreateModal;
-        const values = this.getActivityTrackerValues(activities);
-        const initialValues = this.getInitialValues();
-        return (
-            <section className="h-100 d-flex justify-content-center">
-                <SimpleTwoButtonModal headerText="Add Activity"
-                                      showModal={showModal}
-                                      onCancel={() => {
-                                          this.setState({activityCreateModal: {showModal: false}})
-                                      }}
-                                      showFooter={false}
-                >
-                    <Formik initialValues={initialValues} onSubmit={this.handleActivitySubmit}>
-                        {
-                            () => (
-                                <Form>
-                                    <div className="p-2">
-                                        <InputElement label="Activity Date" name="date" id="date"/>
-                                    </div>
-                                    <div className="p-2">
-                                        <InputElement label="Start Time" name="startTime" id="startTime"/>
-                                    </div>
-                                    <div className="p-2">
-                                        <InputElement label="End Time" name="endTime" id="endTime"/>
-                                    </div>
-                                    <div className="p-2">
-                                        <InputElement type="number" min={10} max={1000} label="Weight" name="currWeight"
-                                                      id="currWeight"/>
-                                    </div>
-                                    <div className="d-flex justify-content-center">
-                                        <button type="submit" className="btn btn-sm btn-primary">Submit</button>
-                                    </div>
-                                </Form>
-                            )
-
-                        }
-
-                    </Formik>
-                </SimpleTwoButtonModal>
-                <div className="w-50 p-5">
-                    <Table columnConfig={columnsConfig} data={activities} tableTitle="Activities" enableSearch
-                           tableToolBarElements={() => (
-                               <span><button className="btn btn-sm btn-primary" onClick={() => {
-                                   this.setState({activityCreateModal: {showModal: true}})
-                               }}>Add Activity</button></span>
-                           )}
-                    />
-                    <div>
-                        <h2>Activity Tracker</h2>
-                        <div className="border border-4 border-dark">
-                            <CalendarHeatmap
-                                startDate={moment().startOf('year') - 1}
-                                endDate={new Date('2022-12-31')}
-                                values={values}
-                                showMonthLabels
-                                gutterSize={5}
-                                showWeekdayLabels
-                            />
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-        )
-    }
+    return (
+        <></>
+    )
 }
 
-export default connect(mapStateToProps, null)(Dashboard);
+export default Dashboard;
