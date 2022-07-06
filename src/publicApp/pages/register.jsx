@@ -55,6 +55,7 @@ const Register = () => {
 
     return (
         <div className="row">
+            <button className="btn btn-primary" onClick={notify}>hii</button>
             <div className="utPosCenter col-sm-8 col-md-7 col-lg-3">
                 {!showCodePage && <div className="basicCard p-4">
                     <h3 className="text-center">Sign up</h3>
@@ -122,7 +123,8 @@ const Register = () => {
                                                       name="code"
                                         />
                                         <div className="p-2 d-flex justify-content-center">
-                                            <button type="submit"
+                                            <button type="button"
+                                                    onClick={notify}
                                                     className="btn btn-primary btn-md"
                                             >
                                                 Submit

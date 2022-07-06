@@ -20,10 +20,10 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
-    "react-calendar-heatmap": "^1.8.1",
     "react-dnd": "^15.1.1",
     "react-dnd-html5-backend": "^15.1.2",
     "react-dom": "^17.0.2",
+    "react-hot-toast": "^2.2.0",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -36,7 +36,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import {Form, Formik} from "formik";
 import InputElement from "../../sharedInteface/inputElement";
 import {Link} from "react-router-dom";
-import {login} from "../../appClient";
 import {useDispatch} from "react-redux";
 import {configureAuth} from "../../store/actions/authAction";
 import {submitSpinner} from "../../utils/generalUtils";
