@@ -3,9 +3,12 @@ import {Formik, Form} from "formik";
 import InputElement from "../../sharedInteface/inputElement";
 import {useHistory} from "react-router";
 import {Auth} from 'aws-amplify';
+import toast from "react-hot-toast";
 
 const Register = () => {
     const [codePageInfo, setCodePageInfo] = useState({showCodePage: false});
+
+
 
     const initialValues = {
         username: "",
@@ -17,6 +20,7 @@ const Register = () => {
     const history = useHistory();
 
     const handleSignUp = async (values) => {
+        try {
         const {username, email, password} = values;
         console.log(email)
         const res = await Auth.signUp({
@@ -31,6 +35,10 @@ const Register = () => {
         });
         setCodePageInfo({showCodePage: true, cognitoInfo: res})
         console.log(res);
+    } catch (err) {
+        console.error(err);
+        toast.error(err.message, {duration: 4000});
+    }
     }
 
     const {cognitoInfo, showCodePage} = codePageInfo;
@@ -55,7 +63,6 @@ const Register = () => {
 
     return (
         <div className="row">
-            <button className="btn btn-primary" onClick={notify}>hii</button>
             <div className="utPosCenter col-sm-8 col-md-7 col-lg-3">
                 {!showCodePage && <div className="basicCard p-4">
                     <h3 className="text-center">Sign up</h3>
@@ -123,8 +130,7 @@ const Register = () => {
                                                       name="code"
                                         />
                                         <div className="p-2 d-flex justify-content-center">
-                                            <button type="button"
-                                                    onClick={notify}
+                                            <button type="submit"
                                                     className="btn btn-primary btn-md"
                                             >
                                                 Submit
