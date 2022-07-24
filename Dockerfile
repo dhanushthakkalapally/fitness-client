@@ -3,7 +3,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY . /app
 RUN npm install
-RUN npm run-script build
+RUN npm run build
 
 FROM nginx:1.15.2-alpine
 COPY --from=build /app/build /usr/share/nginx/html/
@@ -13,9 +13,6 @@ COPY nginx/nginx.conf /etc/nginx/conf.d
 WORKDIR /usr/share/nginx/html
 
 COPY nginx/nginx.conf /etc/nginx/conf.d
-COPY ./env.sh .
-COPY .env .
 EXPOSE 80
 RUN apk add --no-cache bash
-RUN chmod +x env.sh
-CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
+CMD ["/bin/bash", "-c", "nginx -g \"daemon off;\""]
