@@ -76,6 +76,8 @@ Resources:
             - Type: HEAD_REF
               Pattern: ^refs/heads/main$
               ExcludeMatchedPattern: false
+            - Type: COMMIT_MESSAGE
+              Pattern: \[CodeBuild\]
 
 Outputs:
   ElasticContainerRepo:
