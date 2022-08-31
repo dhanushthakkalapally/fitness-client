@@ -3,8 +3,8 @@ Resources:
   ElasticContainerRepo:
     Type: AWS::ECR::Repository
     Properties:
-      ImageTagMutability: IMMUTABLE
-      RepositoryName: fitness-client-repo
+      ImageTagMutability: MUTABLE
+      RepositoryName: fitness-client-repo2
 
   CodeBuildRole:
     Type: AWS::IAM::Role
@@ -47,7 +47,7 @@ Resources:
         Auth:
           Type: OAUTH
         GitCloneDepth: 1
-        Location: https://github.com/dhanushthakkalapally/fitness-client/tree/main
+        Location: https://github.com/dhanushthakkalapally/fitness-client
         Type: GITHUB
 
       Environment:
@@ -65,8 +65,17 @@ Resources:
           - Name: IMAGE_TAG
             Type: PLAINTEXT
             Value: Latest
-        Image: aws/codebuild/standard:4.0
+        Image: aws/codebuild/standard:6.0
         Type: LINUX_CONTAINER
+        PrivilegedMode: true
+      Triggers:
+        Webhook: true
+        FilterGroups:
+          - - Type: EVENT
+              Pattern: PULL_REQUEST_CREATED,PULL_REQUEST_UPDATED,PUSH
+            - Type: BASE_REF
+              Pattern: ^refs/heads/main$
+              ExcludeMatchedPattern: false
 
 Outputs:
   ElasticContainerRepo:
