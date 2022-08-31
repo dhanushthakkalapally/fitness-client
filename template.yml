@@ -6,10 +6,72 @@ Resources:
       ImageTagMutability: IMMUTABLE
       RepositoryName: fitness-client-repo
 
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+#      TODO: NEED to understand in detail
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: [ 'sts:AssumeRole' ]
+            Effect: Allow
+            Principal:
+              Service: [ codebuild.amazonaws.com ]
+        Version: '2012-10-17'
+      Path: /
+      Policies:
+        - PolicyName: CodeBuildAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - 'logs:*'
+                - "ecr:BatchCheckLayerAvailability"
+                - "ecr:CompleteLayerUpload"
+                - "ecr:GetAuthorizationToken"
+                - "ecr:InitiateLayerUpload"
+                - "ecr:PutImage"
+                - "ecr:UploadLayerPart"
+                Effect: Allow
+                Resource: '*'
+
+  CodeBuild:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: FitnessFrontEnd
+      Artifacts:
+        Type: NO_ARTIFACTS
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      BadgeEnabled: true
+      Description: This is a build project for the fitness client
+      Source:
+        Auth:
+          Type: OAUTH
+        GitCloneDepth: 1
+        Location: https://github.com/dhanushthakkalapally/fitness-client/tree/main
+        Type: GITHUB
+
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        EnvironmentVariables:
+          - Name: AWS_DEFAULT_REGION
+            Type: PLAINTEXT
+            Value: !Ref AWS::Region
+          - Name: AWS_ACCOUNT_ID
+            Type: PLAINTEXT
+            Value: !Ref AWS::AccountId
+          - Name: IMAGE_REPO_NAME
+            Type: PLAINTEXT
+            Value: !Ref ElasticContainerRepo
+          - Name: IMAGE_TAG
+            Type: PLAINTEXT
+            Value: Latest
+        Image: aws/codebuild/standard:4.0
+        Type: LINUX_CONTAINER
 
 Outputs:
   ElasticContainerRepo:
     Description: Created ECR name is 
     Value: !Ref ElasticContainerRepo
-    
-
+  CodeBuild:
+    Description: Here is my first code build using Aws Cloudformation
+    Value: !Ref CodeBuild
