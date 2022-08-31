@@ -1,5 +1,5 @@
 FROM node:12-alpine as build
-WORKDIR /apdp
+WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY . /app
 RUN npm install
