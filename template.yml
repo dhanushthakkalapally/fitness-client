@@ -1,4 +1,11 @@
 AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  MyIP:
+    Description: My Current Ip Address to allow only this traffic
+    Type: String
+
+
 Resources:
   ElasticContainerRepo:
     Type: AWS::ECR::Repository
@@ -63,6 +70,19 @@ Resources:
     Properties:
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref PublicSubnet1
+
+  InGressSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Limits the inbound traffic
+      GroupName: EcsSecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !Ref MyIP
+      VpcId: !Ref VPC
+
 
   CodeBuildRole:
     Type: AWS::IAM::Role
@@ -160,10 +180,20 @@ Resources:
           CPU: 256
           Memory: 512
 
-#  EcsClientService:
-#    Type: AWS::ECS::Service
-#    Properties:
-#      Cluster:
+  EcsClientService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ECSCluster
+      TaskDefinition: !Ref ECSClientTaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref InGressSecurityGroup
+          Subnets:
+            - !Ref PublicSubnet1
 
 
 Outputs:
