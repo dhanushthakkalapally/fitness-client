@@ -170,6 +170,34 @@ Resources:
         - CapacityProvider: FARGATE_SPOT
           Weight: 1
 
+  TaskDefinitionIAM:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: [ 'sts:AssumeRole' ]
+            Effect: Allow
+            Principal:
+              Service: [ ecs-tasks.amazonaws.com ]
+        Version: '2012-10-17'
+      Description: Allows ecs to pull the images from the ecr
+      Path: /
+      Policies:
+        - PolicyName: EcsTaskAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - "ecr:GetAuthorizationToken"
+                  - "ecr:BatchCheckLayerAvailability"
+                  - "ecr:GetDownloadUrlForLayer"
+                  - "ecr:BatchGetImage"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Effect: Allow
+                Resource: '*'
+
+
   ECSClientTaskDefinition:
     Type: "AWS::ECS::TaskDefinition"
     Properties:
@@ -179,11 +207,23 @@ Resources:
           Image: !Join [":", [!GetAtt ElasticContainerRepo.RepositoryUri, "Latest"]]
           CPU: 256
           Memory: 512
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: "/ecs/first-run-task-definition"
+              awslogs-region: "eu-west-2"
+              awslogs-stream-prefix: "ecs"
       Cpu: 256
       Memory: 512
       RuntimePlatform:
-        CpuArchitecture: ARM64
+        CpuArchitecture: X86_64
         OperatingSystemFamily: LINUX
+      RequiresCompatibilities:
+        - "FARGATE"
+      NetworkMode: awsvpc
+      ExecutionRoleArn: !Ref TaskDefinitionIAM
+      TaskRoleArn: !GetAtt TaskDefinitionIAM.Arn
+
 
   EcsClientService:
     Type: AWS::ECS::Service
