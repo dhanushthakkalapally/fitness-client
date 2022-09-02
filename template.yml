@@ -179,6 +179,11 @@ Resources:
           Image: !Join [":", [!GetAtt ElasticContainerRepo.RepositoryUri, "Latest"]]
           CPU: 256
           Memory: 512
+      Cpu: 256
+      Memory: 512
+      RuntimePlatform:
+        CpuArchitecture: ARM64
+        OperatingSystemFamily: LINUX
 
   EcsClientService:
     Type: AWS::ECS::Service
