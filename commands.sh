@@ -4,7 +4,4 @@ aws cloudformation create-stack
     --template-body file://template.yml
     --capabilities CAPABILITY_NAMED_IAMI
 
-aws cloudformation update-stack
-  --stack-name fitness-client-stack-2
-  --template-body file://template.yml
-  --capabilities CAPABILITY_NAMED_IAMI
+aws cloudformation update-stack --stack-name fitness-client-stack-2 --template-body file://template.yml --capabilities CAPABILITY_NAMED_IAM

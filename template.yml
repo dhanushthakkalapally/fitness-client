@@ -49,7 +49,6 @@ Resources:
         GitCloneDepth: 1
         Location: https://github.com/dhanushthakkalapally/fitness-client
         Type: GITHUB
-
       Environment:
         ComputeType: BUILD_GENERAL1_SMALL
         EnvironmentVariables:
@@ -79,6 +78,36 @@ Resources:
             - Type: COMMIT_MESSAGE
               Pattern: \[CodeBuild\]
 
+  ECSCluster:
+    Type: 'AWS::ECS::Cluster'
+    Properties:
+      ClusterName: MyFargateCluster
+      CapacityProviders:
+        - FARGATE
+#        TODO: NEED TO KNOW WHAT ARE FARGATE DEFAULT PROVIDERS
+        - FARGATE_SPOT
+      DefaultCapacityProviderStrategy:
+        - CapacityProvider: FARGATE
+          Weight: 1
+        - CapacityProvider: FARGATE_SPOT
+          Weight: 1
+
+  ECSClientTaskDefinition:
+    Type: "AWS::ECS::TaskDefinition"
+    Properties:
+      ContainerDefinitions:
+        -
+          Name: "fitness-client-image"
+          Image: !Join [":", [!GetAtt ElasticContainerRepo.RepositoryUri, "Latest"]]
+          CPU: 256
+          Memory: 512
+
+#  EcsClientService:
+#    Type: AWS::ECS::Service
+#    Properties:
+#      Cluster:
+
+
 Outputs:
   ElasticContainerRepo:
     Description: Created ECR name is 
@@ -86,3 +115,6 @@ Outputs:
   CodeBuild:
     Description: Here is my first code build using Aws Cloudformation
     Value: !Ref CodeBuild
+  ECSClientTaskDefinition:
+    Description: Here is the EcsTaskDefinition output
+    Value: !Ref ECSClientTaskDefinition
