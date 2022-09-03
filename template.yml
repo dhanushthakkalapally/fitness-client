@@ -284,24 +284,39 @@ Resources:
       Protocol: HTTP
 
 
-#  EcsClientService:
-#    Type: AWS::ECS::Service
-#    Properties:
-#      Cluster: !Ref ECSCluster
-#      TaskDefinition: !Ref ECSClientTaskDefinition
-#      DesiredCount: 1
-#      LaunchType: FARGATE
-#      LoadBalancers:
-#        - ContainerName: 'fitness-client-image'
-#          ContainerPort: 80
-#          TargetGroupArn: !Ref ECSTargetGroup
-#      NetworkConfiguration:
-#        AwsvpcConfiguration:
-#          AssignPublicIp: ENABLED
-#          SecurityGroups:
-#            - !Ref InGressSecurityGroup
-#          Subnets:
-#            - !Ref PublicSubnet1
+  EcsServiceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: New Security Group to allow only traffic from load balancer
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !GetAtt InGressSecurityGroup.GroupId
+      Tags:
+        - Tag
+      VpcId: !Ref VPC
+
+
+  EcsClientService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ECSCluster
+      TaskDefinition: !Ref ECSClientTaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      LoadBalancers:
+        - ContainerName: 'fitness-client-image'
+          ContainerPort: 80
+          TargetGroupArn: !Ref ECSTargetGroup
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref EcsServiceSecurityGroup
+          Subnets:
+            - !Ref PublicSubnet1
+            - !Ref PublicSubnet2
 
 Outputs:
   ElasticContainerRepo:
