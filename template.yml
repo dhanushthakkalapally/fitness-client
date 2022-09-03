@@ -88,6 +88,14 @@ Resources:
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref PublicSubnet2
 
+  AcmCertificates:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: turtleturtlerun.com
+      ValidationMethod: DNS
+
+
+
   InGressSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
