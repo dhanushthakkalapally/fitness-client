@@ -95,9 +95,9 @@ Resources:
       GroupName: EcsSecurityGroup
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
-          CidrIp: !Ref MyIP
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
       VpcId: !Ref VPC
 
   ECSTargetGroup:
@@ -292,9 +292,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
-          CidrIp: !GetAtt InGressSecurityGroup.GroupId
-      Tags:
-        - Tag
+          SourceSecurityGroupId: !Ref InGressSecurityGroup
       VpcId: !Ref VPC
 
 
