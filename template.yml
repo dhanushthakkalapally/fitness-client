@@ -284,24 +284,24 @@ Resources:
       Protocol: HTTP
 
 
-  EcsClientService:
-    Type: AWS::ECS::Service
-    Properties:
-      Cluster: !Ref ECSCluster
-      TaskDefinition: !Ref ECSClientTaskDefinition
-      DesiredCount: 1
-      LaunchType: FARGATE
-      LoadBalancers:
-        - ContainerName: 'fitness-client-image'
-          ContainerPort: 80
-          TargetGroupArn: !Ref ECSTargetGroup
-      NetworkConfiguration:
-        AwsvpcConfiguration:
-          AssignPublicIp: ENABLED
-          SecurityGroups:
-            - !Ref InGressSecurityGroup
-          Subnets:
-            - !Ref PublicSubnet1
+#  EcsClientService:
+#    Type: AWS::ECS::Service
+#    Properties:
+#      Cluster: !Ref ECSCluster
+#      TaskDefinition: !Ref ECSClientTaskDefinition
+#      DesiredCount: 1
+#      LaunchType: FARGATE
+#      LoadBalancers:
+#        - ContainerName: 'fitness-client-image'
+#          ContainerPort: 80
+#          TargetGroupArn: !Ref ECSTargetGroup
+#      NetworkConfiguration:
+#        AwsvpcConfiguration:
+#          AssignPublicIp: ENABLED
+#          SecurityGroups:
+#            - !Ref InGressSecurityGroup
+#          Subnets:
+#            - !Ref PublicSubnet1
 
 Outputs:
   ElasticContainerRepo:
