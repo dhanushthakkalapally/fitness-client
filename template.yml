@@ -100,22 +100,32 @@ Resources:
           CidrIp: !Ref MyIP
       VpcId: !Ref VPC
 
-#  ApplicationLoadBalancer:
-#    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
-#    Properties:
-#      IpAddressType: ipv4
-#      LoadBalancerAttributes:
-#        - LoadBalancerAttribute
-#      Scheme: String
-#      SecurityGroups:
-#        - String
-#      SubnetMappings:
-#        - SubnetMapping
-#      Subnets:
-#        - String
-#      Tags:
-#        - Tag
-#      Type: application
+  ECSTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: true
+      HealthCheckIntervalSeconds: 5
+      HealthCheckPath: /
+      HealthCheckPort: 80
+      HealthCheckTimeoutSeconds: 10
+      HealthyThresholdCount: 5
+      IpAddressType: Ipv4
+      ProtocolVersion: HTTP1
+      TargetType: ip
+      VpcId: !Ref VPC
+
+
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      IpAddressType: ipv4
+      Scheme: internet-facing
+      SecurityGroups:
+        - !Ref InGressSecurityGroup
+      Subnets:
+        - !Ref PublicSubnet1
+        - !Ref PublicSubnet2
+      Type: application
 
 
   CodeBuildRole:
