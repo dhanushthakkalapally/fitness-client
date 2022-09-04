@@ -306,25 +306,25 @@ Resources:
       VpcId: !Ref VPC
 
 
-  EcsClientService:
-    Type: AWS::ECS::Service
-    Properties:
-      Cluster: !Ref ECSCluster
-      TaskDefinition: !Ref ECSClientTaskDefinition
-      DesiredCount: 1
-      LaunchType: FARGATE
-      LoadBalancers:
-        - ContainerName: 'fitness-client-image'
-          ContainerPort: 80
-          TargetGroupArn: !Ref ECSTargetGroup
-      NetworkConfiguration:
-        AwsvpcConfiguration:
-          AssignPublicIp: ENABLED
-          SecurityGroups:
-            - !Ref EcsServiceSecurityGroup
-          Subnets:
-            - !Ref PublicSubnet1
-            - !Ref PublicSubnet2
+#  EcsClientService:
+#    Type: AWS::ECS::Service
+#    Properties:
+#      Cluster: !Ref ECSCluster
+#      TaskDefinition: !Ref ECSClientTaskDefinition
+#      DesiredCount: 1
+#      LaunchType: FARGATE
+#      LoadBalancers:
+#        - ContainerName: 'fitness-client-image'
+#          ContainerPort: 80
+#          TargetGroupArn: !Ref ECSTargetGroup
+#      NetworkConfiguration:
+#        AwsvpcConfiguration:
+#          AssignPublicIp: ENABLED
+#          SecurityGroups:
+#            - !Ref EcsServiceSecurityGroup
+#          Subnets:
+#            - !Ref PublicSubnet1
+#            - !Ref PublicSubnet2
 
 Outputs:
   ElasticContainerRepo:
