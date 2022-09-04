@@ -149,7 +149,6 @@ Resources:
       AliasTarget:
         HostedZoneId: !GetAtt ApplicationLoadBalancer.CanonicalHostedZoneID
         DNSName: !GetAtt ApplicationLoadBalancer.DNSName
-      TTL: 900
       Type: A
 
 
