@@ -1,8 +1,12 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Parameters:
-  MyIP:
-    Description: My Current Ip Address to allow only this traffic
+  DomainName:
+    Description: Domain Name of the website
+    Type: String
+
+  HostedZoneId:
+    Description: Route53 hosted zoneId of the domain
     Type: String
 
 
@@ -91,7 +95,7 @@ Resources:
   AcmCertificates:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: turtleturtlerun.com
+      DomainName: !Ref DomainName
       ValidationMethod: DNS
 
 
@@ -136,6 +140,17 @@ Resources:
         - !Ref PublicSubnet1
         - !Ref PublicSubnet2
       Type: application
+
+  DNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Join [".", ["www", !Ref DomainName]]
+      AliasTarget:
+        HostedZoneId: !GetAtt ApplicationLoadBalancer.CanonicalHostedZoneID
+        DNSName: !GetAtt ApplicationLoadBalancer.DNSName
+      TTL: 900
+      Type: A
 
 
   CodeBuildRole:
